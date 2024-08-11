@@ -58,11 +58,9 @@ JOIN patogeno AS p ON p.id = d.patogeno_id
 GROUP BY p.tipo
 ORDER BY quantidade_de_doencas_cadastradas ASC, tipo_do_patogeno;
 
-# assim msm fi mostra tudo pediu mandou
-
 #========================================================================================================================
 
-# Letra (e) - Apêndice B: Consulta para obter algumas estatísticas sobre os dados armazenados no sistema. (? linhas?)
+# Letra (e) - Apêndice B: Consulta para obter algumas estatísticas sobre os dados armazenados no sistema.
 SELECT
     (SELECT COUNT(*) FROM doenca) AS numero_de_doencas,
     (SELECT COUNT(*) FROM sintoma) AS numero_de_sintomas,
