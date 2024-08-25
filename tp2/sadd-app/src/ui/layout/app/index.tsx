@@ -14,7 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
-import logo from "../../../../public/logo192.png";
+import logo from "../../../assets/imgs/logo.png";
 
 interface Props {
   window?: () => Window;
