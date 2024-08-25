@@ -1,1 +1,1 @@
-export * from "./useDatabase";
+export * from "../modules/patogeno/api/patogenoApi";
