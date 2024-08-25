@@ -1,7 +1,12 @@
 {
   "name": "sadd-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "main": "index.js",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -16,16 +21,27 @@
     "@types/node": "^16.18.105",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mariadb": "^3.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
+    "readline-sync": "^1.4.10",
     "styled-components": "^6.1.12",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "@types/readline-sync": "^1.4.8",
+    "ajv": "^7.2.4",
+    "concurrently": "^8.2.2"
+  },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node src/database/index.js",
+    "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -47,8 +63,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "ajv": "^7.2.4"
   }
 }

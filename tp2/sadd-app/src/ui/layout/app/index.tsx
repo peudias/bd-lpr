@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../../assets/imgs/logo.png";
+import UserList from "../../../hooks/useDatabase";
 
 interface Props {
   window?: () => Window;
@@ -26,6 +27,8 @@ const navItems = ["Home", "About", "Contact"];
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { users } = UserList();
+  console.log(users);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
