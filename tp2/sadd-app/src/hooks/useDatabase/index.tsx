@@ -1,15 +1,18 @@
-import { log } from "console";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 function UserList() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    // Fazendo uma requisição GET para a API
-    fetch("http://localhost:3001/api/users")
-      .then((response) => response.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Erro ao buscar usuários:", error));
+    axios
+      .get("http://localhost:3001/api/users")
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar usuários:", error);
+      });
   }, []);
 
   return { users };
