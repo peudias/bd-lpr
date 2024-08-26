@@ -32,6 +32,7 @@ app.get("/api/patogeno", async (req, res) => {
   try {
     conn = await pool.getConnection();
     const rows = await conn.query("SELECT * FROM patogeno");
+    console.log(rows);
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
