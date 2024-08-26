@@ -116,8 +116,9 @@ ORDER BY
 
 SELECT d.id, d.nomes_tecnicos 
 FROM doenca AS d 
-JOIN sintoma AS s ON s.doenca_id = d.id 
-WHERE s.nome = 'Febre' OR s.nome = 'Diarreia' 
+JOIN sintoma AS s1 ON s1.doenca_id = d.id 
+JOIN sintoma AS s2 ON s2.doenca_id = d.id 
+WHERE s1.nome = 'Febre' AND s2.nome = 'Diarreia' 
 GROUP BY d.nomes_tecnicos
 ORDER BY d.nomes_tecnicos;
 
