@@ -89,6 +89,7 @@ app.get("/api/nomes_populares", async (req, res) => {
   try {
     conn = await pool.getConnection();
     const rows = await conn.query("SELECT * FROM nomes_populares");
+    console.log(rows);
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
