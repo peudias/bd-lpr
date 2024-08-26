@@ -2,15 +2,18 @@ import axios from "axios";
 import { IPatogeno } from "../../../libs/typings";
 import { useState } from "react";
 
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? "https://meusadd.vercel.app/api"
+    : "http://localhost:3001/api";
+
 function UsePatogeno() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const list = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<IPatogeno[]>(
-        "http://localhost:3001/api/patogeno"
-      );
+      const response = await axios.get<IPatogeno[]>(`${baseURL}/patogeno`);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar patógenos:", error);
@@ -22,9 +25,7 @@ function UsePatogeno() {
   const getPatogenoById = async (id: number) => {
     setLoading(true);
     try {
-      const response = await axios.get<IPatogeno>(
-        `http://localhost:3001/api/patogeno/${id}`
-      );
+      const response = await axios.get<IPatogeno>(`${baseURL}/patogeno`);
       return response.data;
     } catch (error) {
       console.error(`Erro ao buscar patógeno com ID ${id}:`, error);
@@ -37,7 +38,7 @@ function UsePatogeno() {
     setLoading(true);
     try {
       const response = await axios.post<IPatogeno>(
-        "http://localhost:3001/api/patogeno",
+        `${baseURL}/patogeno`,
         newPatogeno
       );
       return response.data;
@@ -53,7 +54,7 @@ function UsePatogeno() {
     setLoading(true);
     try {
       const response = await axios.put<IPatogeno>(
-        `http://localhost:3001/api/patogeno/${updatedPatogeno.id}`,
+        `${baseURL}/patogeno/${updatedPatogeno.id}`,
         updatedPatogeno
       );
       return response.data;
@@ -67,9 +68,7 @@ function UsePatogeno() {
   const deletePatogeno = async (id: number) => {
     setLoading(true);
     try {
-      const response = await axios.delete(
-        `http://localhost:3001/api/patogeno/${id}`
-      );
+      const response = await axios.delete(`${baseURL}/patogeno/${id}`);
       return response.data;
     } catch (error) {
       console.error("Erro ao deletar patógeno:", error);
