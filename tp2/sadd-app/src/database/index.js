@@ -3,6 +3,8 @@ const express = require("express");
 const mariadb = require("mariadb");
 const cors = require("cors");
 
+const app = express();
+
 const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -22,8 +24,6 @@ pool
   .catch((erro) => {
     console.log("Erro ao conectar com o banco de dados:", erro);
   });
-
-const app = express();
 
 app.use(cors());
 
@@ -97,11 +97,8 @@ app.get("/api/nomes_populares", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
-});
+const port = process.env.PORT || 3001;
 
-const port = process.env.DB_PORT || 3001;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
