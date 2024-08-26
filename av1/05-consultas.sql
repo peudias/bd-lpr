@@ -56,7 +56,7 @@ ORDER BY d.nomes_tecnicos;
 SELECT p.tipo AS tipo_do_patogeno, COUNT(*) AS quantidade_de_doencas_cadastradas FROM doenca AS d
 JOIN patogeno AS p ON p.id = d.patogeno_id
 GROUP BY p.tipo
-ORDER BY quantidade_de_doencas_cadastradas ASC, tipo_do_patogeno;
+ORDER BY quantidade_de_doencas_cadastradas DESC, tipo_do_patogeno;
 
 #========================================================================================================================
 
