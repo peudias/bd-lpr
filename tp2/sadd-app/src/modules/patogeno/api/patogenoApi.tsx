@@ -7,6 +7,9 @@ const baseURL =
     ? "https://meusadd.vercel.app/api"
     : "http://localhost:3001/api";
 
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log(baseURL);
+
 function UsePatogeno() {
   const [loading, setLoading] = useState<boolean>(false);
 
