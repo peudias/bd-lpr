@@ -17,6 +17,7 @@ function UsePatogeno() {
     setLoading(true);
     try {
       const response = await axios.get<IPatogeno[]>(`${baseURL}/patogeno`);
+      console.log(baseURL);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar patógenos:", error);
@@ -29,6 +30,7 @@ function UsePatogeno() {
     setLoading(true);
     try {
       const response = await axios.get<IPatogeno>(`${baseURL}/patogeno`);
+      console.log(baseURL);
       return response.data;
     } catch (error) {
       console.error(`Erro ao buscar patógeno com ID ${id}:`, error);
