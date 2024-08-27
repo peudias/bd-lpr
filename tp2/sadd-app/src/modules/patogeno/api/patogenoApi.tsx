@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const baseURL =
   process.env.NODE_ENV === "production"
-    ? "https://meusadd.vercel.app/"
+    ? "https://bd-lpr.vercel.app"
     : "http://localhost:3001/api";
 
 console.log("NODE_ENV:", process.env.NODE_ENV);
