@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const baseURL =
   process.env.NODE_ENV === "production"
-    ? "https://meusadd.vercel.app/api"
+    ? "https://meusadd.vercel.app/"
     : "http://localhost:3001/api";
 
 console.log("NODE_ENV:", process.env.NODE_ENV);
@@ -17,7 +17,6 @@ function UsePatogeno() {
     setLoading(true);
     try {
       const response = await axios.get<IPatogeno[]>(`${baseURL}/patogeno`);
-      console.log(baseURL);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar patógenos:", error);
@@ -30,7 +29,6 @@ function UsePatogeno() {
     setLoading(true);
     try {
       const response = await axios.get<IPatogeno>(`${baseURL}/patogeno`);
-      console.log(baseURL);
       return response.data;
     } catch (error) {
       console.error(`Erro ao buscar patógeno com ID ${id}:`, error);
