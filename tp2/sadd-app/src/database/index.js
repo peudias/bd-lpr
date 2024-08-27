@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mariadb = require("mariadb");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.get("/api/patogeno", async (req, res) => {
   try {
     conn = await pool.getConnection();
     const rows = await conn.query("SELECT * FROM patogeno");
+    console.log(rows);
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -96,6 +98,14 @@ app.get("/api/nomes_populares", async (req, res) => {
     if (conn) conn.end();
   }
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+}
 
 const port = process.env.PORT || 3001;
 
