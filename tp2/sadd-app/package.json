@@ -70,7 +70,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node src/database/index.js",
     "client": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run server & react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
