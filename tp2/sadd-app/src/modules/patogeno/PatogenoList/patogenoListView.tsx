@@ -1,19 +1,11 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { PatogenoListControllerContext } from "./patogenoControllerList";
 import { LoadingContainer } from "./patogenoListViewStyle";
 import PageLayout from "../../../ui/layout/pageLayout/PageLayout";
 import { useNavigate } from "react-router-dom";
-import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
+import { TableLayout } from "../../../ui/components";
 
 const PatogenoListView = () => {
   const { todoList, loading, onAdd } = React.useContext(
@@ -70,21 +62,7 @@ const PatogenoListView = () => {
       onBack={() => {}}
     >
       {todoList && todoList.length > 0 ? (
-        <List>
-          {todoList.map((patogeno) => (
-            <ListItem
-              key={patogeno.id}
-              onClick={() => {
-                navigate(`/patogeno/edit/${patogeno.id}`);
-              }}
-            >
-              <ListItemText
-                primary={patogeno.nome_cientifico}
-                secondary={`Tipo: ${patogeno.tipo}`}
-              />
-            </ListItem>
-          ))}
-        </List>
+        <TableLayout todolist={todoList}></TableLayout>
       ) : (
         <Typography variant="body1">Nenhum patógeno encontrado.</Typography>
       )}
