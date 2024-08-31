@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -21,6 +21,8 @@ const PatogenoListView = () => {
   );
   const navigate = useNavigate();
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   if (loading) {
     return (
       <LoadingContainer>
@@ -32,11 +34,21 @@ const PatogenoListView = () => {
     );
   }
 
-  const mappedTodoList = todoList.map((item: IPatogeno) => ({
-    id: item.id,
-    nome: item.nome_cientifico,
-    categoria: item.tipo,
-  }));
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredTodoList = todoList
+    .map((item: IPatogeno) => ({
+      id: item.id,
+      nome: item.nome_cientifico,
+      categoria: item.tipo,
+    }))
+    .filter(
+      (item) =>
+        item.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.categoria.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   const searchsOption = (
     <Box sx={{ maxWidth: "360px", width: "100%" }}>
@@ -45,6 +57,8 @@ const PatogenoListView = () => {
         id="search-patogeno"
         label="Pesquisar"
         variant="outlined"
+        value={searchTerm}
+        onChange={handleSearchChange}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start" sx={{ mr: 1 }}>
@@ -82,9 +96,9 @@ const PatogenoListView = () => {
       actions={buttonsOption}
       onBack={() => {}}
     >
-      {todoList && todoList.length > 0 ? (
+      {filteredTodoList.length > 0 ? (
         <TableLayout
-          todolist={mappedTodoList}
+          todolist={filteredTodoList}
           editPath="patogeno"
           deletePath="deletePath"
         />
