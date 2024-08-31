@@ -9,9 +9,6 @@ import { PatogenoModuleContext } from "../patogenoContainer";
 const PatogenoDetailView = () => {
   const { document, loading } = useContext(PatogenoDetailControllerContext);
   const { state } = useContext(PatogenoModuleContext);
-  console.log("ESTADO DA TELA = ", state);
-  console.log("DOCUMENTO = ", document);
-
   if (loading) {
     return (
       <LoadingContainer>

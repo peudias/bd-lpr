@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Box,
+  Button,
   CircularProgress,
   List,
   ListItem,
@@ -9,10 +10,17 @@ import {
 } from "@mui/material";
 import { PatogenoListControllerContext } from "./patogenoControllerList";
 import { LoadingContainer } from "./patogenoListViewStyle";
+import PageLayout from "../../../ui/layout/pageLayout/PageLayout";
+import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import TextField from "@mui/material/TextField";
 
 const PatogenoListView = () => {
-  const { todoList, loading } = React.useContext(PatogenoListControllerContext);
-  console.log("LISTA DE PATOGENOS = ", todoList);
+  const { todoList, loading, onAdd } = React.useContext(
+    PatogenoListControllerContext
+  );
+  const navigate = useNavigate();
+
   if (loading) {
     return (
       <LoadingContainer>
@@ -24,9 +32,43 @@ const PatogenoListView = () => {
     );
   }
 
-  return (
+  const searchsOption = (
+    <Box sx={{ maxWidth: "360px", width: "100%" }}>
+      <TextField
+        sx={{ width: "100%" }}
+        id="search-patogeno"
+        label="Pesquisar por nome"
+        variant="outlined"
+      />
+    </Box>
+  );
+
+  const buttonsOption = (
     <Box>
-      <Typography variant="h6">Ver todos os patógenos</Typography>
+      <Button
+        onClick={() => onAdd()}
+        sx={{ minWidth: "180px" }}
+        variant="contained"
+      >
+        Criar Patógeno
+      </Button>
+    </Box>
+  );
+
+  const titlePage = (
+    <Box>
+      <Typography variant="h5">Patógenos</Typography>
+    </Box>
+  );
+
+  return (
+    <PageLayout
+      key={"PatogenoPageLayoutListKEY"}
+      titleComponent={titlePage}
+      searchs={searchsOption}
+      actions={buttonsOption}
+      onBack={() => {}}
+    >
       {todoList && todoList.length > 0 ? (
         <List>
           {todoList.map((patogeno) => (
@@ -41,7 +83,7 @@ const PatogenoListView = () => {
       ) : (
         <Typography variant="body1">Nenhum patógeno encontrado.</Typography>
       )}
-    </Box>
+    </PageLayout>
   );
 };
 
