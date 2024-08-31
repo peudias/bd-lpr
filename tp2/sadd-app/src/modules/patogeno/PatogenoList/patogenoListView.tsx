@@ -77,7 +77,7 @@ const PatogenoListView = () => {
         sx={{ minWidth: "100%" }}
         variant="contained"
       >
-        Criar Patógeno
+        Cadastrar Patógeno
       </Button>
     </Box>
   );

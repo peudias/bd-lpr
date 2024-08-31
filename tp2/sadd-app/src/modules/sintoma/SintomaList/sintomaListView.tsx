@@ -77,7 +77,7 @@ const SintomaListView = () => {
         sx={{ minWidth: "100%" }}
         variant="contained"
       >
-        Criar Sintoma
+        Cadastrar Sintoma
       </Button>
     </Box>
   );
