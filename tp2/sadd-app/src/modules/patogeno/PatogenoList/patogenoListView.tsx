@@ -72,7 +72,12 @@ const PatogenoListView = () => {
       {todoList && todoList.length > 0 ? (
         <List>
           {todoList.map((patogeno) => (
-            <ListItem key={patogeno.id}>
+            <ListItem
+              key={patogeno.id}
+              onClick={() => {
+                navigate(`/patogeno/edit/${patogeno.id}`);
+              }}
+            >
               <ListItemText
                 primary={patogeno.nome_cientifico}
                 secondary={`Tipo: ${patogeno.tipo}`}

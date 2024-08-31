@@ -15,17 +15,28 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../../assets/imgs/logo.png";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   window?: () => Window;
 }
 
+interface IRoutes {
+  name: string;
+  path: string;
+}
+
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+const navItems: IRoutes[] = [
+  { name: "Home", path: "/home" },
+  { name: "Patógeno", path: "/patogeno/view" },
+  { name: "Registro", path: "/logging" },
+];
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -38,10 +49,15 @@ export default function DrawerAppBar(props: Props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+        {navItems.map((item, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton
+              sx={{ textAlign: "center" }}
+              onClick={() => {
+                navigate(item.path);
+              }}
+            >
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -77,9 +93,15 @@ export default function DrawerAppBar(props: Props) {
             </Typography>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
+            {navItems.map((item, index) => (
+              <Button
+                key={index}
+                sx={{ color: "#fff" }}
+                onClick={() => {
+                  navigate(item.path);
+                }}
+              >
+                {item.name}
               </Button>
             ))}
           </Box>
