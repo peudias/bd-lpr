@@ -1,11 +1,19 @@
 import React from "react";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 import { PatogenoListControllerContext } from "./patogenoControllerList";
 import { LoadingContainer } from "./patogenoListViewStyle";
 import PageLayout from "../../../ui/layout/pageLayout/PageLayout";
 import { useNavigate } from "react-router-dom";
-import TextField from "@mui/material/TextField";
 import { TableLayout } from "../../../ui/components";
+import { IPatogeno } from "../../../libs/typings";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const PatogenoListView = () => {
   const { todoList, loading, onAdd } = React.useContext(
@@ -24,13 +32,26 @@ const PatogenoListView = () => {
     );
   }
 
+  const mappedTodoList = todoList.map((item: IPatogeno) => ({
+    id: item.id,
+    nome: item.nome_cientifico,
+    categoria: item.tipo,
+  }));
+
   const searchsOption = (
     <Box sx={{ maxWidth: "360px", width: "100%" }}>
       <TextField
         sx={{ width: "100%" }}
         id="search-patogeno"
-        label="Pesquisar por nome"
+        label="Pesquisar"
         variant="outlined"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start" sx={{ mr: 1 }}>
+              <SearchOutlinedIcon />
+            </InputAdornment>
+          ),
+        }}
       />
     </Box>
   );
@@ -39,7 +60,7 @@ const PatogenoListView = () => {
     <Box>
       <Button
         onClick={() => onAdd()}
-        sx={{ minWidth: "180px" }}
+        sx={{ minWidth: "100%" }}
         variant="contained"
       >
         Criar Patógeno
@@ -62,7 +83,11 @@ const PatogenoListView = () => {
       onBack={() => {}}
     >
       {todoList && todoList.length > 0 ? (
-        <TableLayout todolist={todoList}></TableLayout>
+        <TableLayout
+          todolist={mappedTodoList}
+          editPath="patogeno"
+          deletePath="deletePath"
+        />
       ) : (
         <Typography variant="body1">Nenhum patógeno encontrado.</Typography>
       )}

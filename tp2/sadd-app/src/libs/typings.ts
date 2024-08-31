@@ -1,7 +1,7 @@
 import { SxProps } from "@mui/system";
 
 export interface IPatogeno {
-  id: number | undefined;
+  id: number;
   nome_cientifico: string;
   tipo: string;
 }
