@@ -14,6 +14,18 @@ export interface IDoenca {
   nomes_populares: string;
 }
 
+export interface ISintoma {
+  id: number;
+  doenca_id: number;
+  nome: string;
+  nivel_de_ocorrencia:
+    | "Muito Comum"
+    | "Comum"
+    | "Pouco Comum"
+    | "Raro"
+    | "Muito Raro";
+}
+
 export interface ISxStyleObject {
   [key: string]: SxProps;
 }

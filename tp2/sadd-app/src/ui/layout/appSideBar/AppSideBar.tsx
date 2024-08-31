@@ -31,6 +31,7 @@ const navItems: IRoutes[] = [
   { name: "Home", path: "/home" },
   { name: "Doença", path: "/doenca/view" },
   { name: "Patógeno", path: "/patogeno/view" },
+  { name: "Sintoma", path: "/sintoma/view" },
   { name: "Registro", path: "/logging" },
 ];
 
