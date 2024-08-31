@@ -6,6 +6,14 @@ export interface IPatogeno {
   tipo: string;
 }
 
+export interface IDoenca {
+  id: number;
+  patogeno_id: number;
+  CID: string;
+  nomes_tecnicos: string;
+  nomes_populares: string;
+}
+
 export interface ISxStyleObject {
   [key: string]: SxProps;
 }

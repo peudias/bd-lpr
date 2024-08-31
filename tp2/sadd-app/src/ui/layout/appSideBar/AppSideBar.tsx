@@ -29,6 +29,7 @@ interface IRoutes {
 const drawerWidth = 240;
 const navItems: IRoutes[] = [
   { name: "Home", path: "/home" },
+  { name: "Doença", path: "/doenca/view" },
   { name: "Patógeno", path: "/patogeno/view" },
   { name: "Registro", path: "/logging" },
 ];
