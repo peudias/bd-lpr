@@ -14,6 +14,9 @@ import { useNavigate } from "react-router-dom";
 import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
 import BiotechOutlinedIcon from "@mui/icons-material/BiotechOutlined";
 import HealingOutlinedIcon from "@mui/icons-material/HealingOutlined";
+import fakeNewsImage from "../../assets/imgs/fakeNews.png";
+import atualizacaoCaderneta from "../../assets/imgs/caderneta.jpeg";
+import orientacoesCaderneta from "../../assets/imgs/caderneta2.jpg";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -110,37 +113,48 @@ const Home = () => {
             {
               title: "Saúde de A-Z",
               news: "Novo guia de saúde lançado para 2024.",
+              image: fakeNewsImage,
             },
             {
               title: "Caderneta da Criança",
               news: "Atualização importante na caderneta de vacinação.",
+              image: atualizacaoCaderneta,
             },
             {
               title: "Caderneta da Criança",
               news: "Confira as novas orientações para cuidados infantis.",
+              image: orientacoesCaderneta,
             },
           ].map((content, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card>
-                <CardContent>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontWeight: "bold",
-                      color: "#46818B",
-                    }}
-                  >
-                    {content.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      mt: 1,
-                      color: "#555",
-                    }}
-                  >
-                    {content.news}
-                  </Typography>
+                <CardContent sx={{ display: "flex", alignItems: "center" }}>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontWeight: "bold",
+                        color: "#46818B",
+                      }}
+                    >
+                      {content.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mt: 1,
+                        color: "#555",
+                      }}
+                    >
+                      {content.news}
+                    </Typography>
+                  </Box>
+                  <CardMedia
+                    component="img"
+                    image={content.image}
+                    alt={content.title}
+                    sx={{ width: 80, height: 80, borderRadius: "4px" }}
+                  />
                 </CardContent>
               </Card>
             </Grid>
