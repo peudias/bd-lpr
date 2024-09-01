@@ -10,8 +10,11 @@ import {
   CardContent,
 } from "@mui/material";
 import banner from "../../assets/imgs/banner.jpeg";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       <Box sx={{ backgroundColor: "white", padding: 2 }}>
@@ -42,10 +45,18 @@ const Home = () => {
       <Container sx={{ mt: 4 }}>
         <Typography variant="h6">Minha Saúde</Typography>
         <Grid container spacing={2} sx={{ mt: 2 }}>
-          {["Doenças", "Patógenos", "Sintomas"].map((text, index) => (
+          {[
+            { text: "Doenças", path: "/doenca/view" },
+            { text: "Patógenos", path: "/patogeno/view" },
+            { text: "Sintomas", path: "/sintoma/view" },
+          ].map((item, index) => (
             <Grid item xs={6} sm={3} md={2} key={index}>
-              <Button variant="outlined" fullWidth>
-                <Typography variant="body2">{text}</Typography>
+              <Button
+                variant="outlined"
+                fullWidth
+                onClick={() => navigate(item.path)}
+              >
+                <Typography variant="body2">{item.text}</Typography>
               </Button>
             </Grid>
           ))}
