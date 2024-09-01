@@ -32,7 +32,7 @@ const navItems: IRoutes[] = [
   { name: "Doença", path: "/doenca/view" },
   { name: "Patógeno", path: "/patogeno/view" },
   { name: "Sintoma", path: "/sintoma/view" },
-  { name: "Registro", path: "/logging" },
+  { name: "Registros", path: "/logging" },
 ];
 
 export default function DrawerAppBar(props: Props) {
@@ -47,7 +47,7 @@ export default function DrawerAppBar(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        SADD - Sistema de Apoio ao Diagnóstico de Doenças
+        Meu SADD - Sistema de Apoio ao Diagnóstico de Doenças
       </Typography>
       <Divider />
       <List>
@@ -91,7 +91,7 @@ export default function DrawerAppBar(props: Props) {
               component="div"
               sx={{ display: { xs: "none", sm: "block" } }}
             >
-              SADD - Sistema de Apoio ao Diagnóstico de Doenças
+              Meu SADD - Sistema de Apoio ao Diagnóstico de Doenças
             </Typography>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
