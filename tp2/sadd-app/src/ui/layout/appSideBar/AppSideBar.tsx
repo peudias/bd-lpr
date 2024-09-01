@@ -69,7 +69,7 @@ export default function DrawerAppBar(props: Props) {
           variant="h6"
           sx={{
             color: "#FFFFFF",
-            fontWeight: "bold",
+            fontFamily: "'SUSE', sans-serif",
           }}
         >
           Meu SADD
@@ -115,7 +115,10 @@ export default function DrawerAppBar(props: Props) {
             <Typography
               variant="h6"
               component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
+              sx={{
+                display: { xs: "none", sm: "block" },
+                fontFamily: "'SUSE', sans-serif",
+              }}
             >
               Meu SADD - Sistema de Apoio ao Diagnóstico de Doenças
             </Typography>
