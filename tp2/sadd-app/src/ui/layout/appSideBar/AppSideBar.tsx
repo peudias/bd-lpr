@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../../assets/imgs/logo.png";
 import { useNavigate } from "react-router-dom";
+import logoImage from "../../../assets/imgs/logo.png";
 
 interface Props {
   window?: () => Window;
@@ -46,9 +47,34 @@ export default function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        Meu SADD - Sistema de Apoio ao Diagnóstico de Doenças
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          backgroundColor: "#46818B",
+          padding: 2,
+        }}
+      >
+        <Avatar
+          alt="Logo"
+          src={logoImage}
+          sx={{
+            width: 50,
+            height: 50,
+            mb: 1,
+          }}
+        />
+        <Typography
+          variant="h6"
+          sx={{
+            color: "#FFFFFF",
+            fontWeight: "bold",
+          }}
+        >
+          Meu SADD
+        </Typography>
+      </Box>
       <Divider />
       <List>
         {navItems.map((item, index) => (
