@@ -29,3 +29,11 @@ export interface ISintoma {
 export interface ISxStyleObject {
   [key: string]: SxProps;
 }
+
+declare module "jspdf" {
+  interface jsPDF {
+    autoTable: (options: any) => jsPDF;
+  }
+}
+
+declare module "jspdf-autotable";
