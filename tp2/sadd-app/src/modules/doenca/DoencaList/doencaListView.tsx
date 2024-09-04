@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Box,
   CircularProgress,
@@ -20,24 +20,37 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { DoencaListControllerContext } from "./doencaControllerList";
+import { SintomaListControllerContext } from "../../sintoma/SintomaList/sintomaControllerList";
 import { LoadingContainer } from "./doencaListViewStyle";
+import { IDoenca, ISintoma } from "../../../libs/typings";
 
-type Doenca = {
-  id: number | undefined;
-  nomes_tecnicos: string;
-  nomes_populares: string;
-  CID: string;
-  patogeno_id: number;
-  sintomas?: string;
-};
-
-const DoencaListView = () => {
-  const { todoList, loading } = React.useContext(DoencaListControllerContext);
+const DoencaListView: React.FC = React.memo(() => {
+  const { todoList: doencaToDoList, loading: doencaLoading } = useContext(
+    DoencaListControllerContext
+  );
+  const { todoList: sintomaToDoList, loading: sintomaLoading } = useContext(
+    SintomaListControllerContext
+  );
   const [searchTerm, setSearchTerm] = useState("");
 
-  const listaDeDoencas: Doenca[] = Array.isArray(todoList) ? todoList : [];
+  const listaDeDoencas: IDoenca[] = Array.isArray(doencaToDoList)
+    ? doencaToDoList
+    : [];
+  const listaDeSintomas: ISintoma[] = Array.isArray(sintomaToDoList)
+    ? sintomaToDoList
+    : [];
 
-  const filteredDoencas = listaDeDoencas.filter((doenca) => {
+  // console.log("listaDeDoencas ", listaDeDoencas);
+  // console.log("listaDeSintomas ", listaDeSintomas);
+
+  const listaDeDoencasComSintomas = listaDeDoencas.map((doenca) => ({
+    ...doenca,
+    sintomas: listaDeSintomas.filter(
+      (sintoma) => sintoma.doenca_id === doenca.id
+    ),
+  }));
+
+  const filteredDoencas = listaDeDoencasComSintomas.filter((doenca) => {
     return (
       doenca.nomes_tecnicos?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       doenca.nomes_populares
@@ -70,7 +83,7 @@ const DoencaListView = () => {
         doenca.nomes_populares || "N/A",
         doenca.CID || "N/A",
         doenca.patogeno_id || "N/A",
-        doenca.sintomas || "N/A",
+        doenca.sintomas?.map((sintoma) => sintoma.nome).join(", ") || "N/A",
       ]),
       startY: 40,
     });
@@ -78,7 +91,7 @@ const DoencaListView = () => {
     doc.save("relatorio_de_doencas.pdf");
   };
 
-  if (loading) {
+  if (doencaLoading || sintomaLoading) {
     return (
       <LoadingContainer>
         <CircularProgress />
@@ -147,7 +160,9 @@ const DoencaListView = () => {
                       </Typography>
                       <Typography>
                         Sintomas:{" "}
-                        {doenca.sintomas || "Sintomas não disponíveis"}
+                        {doenca.sintomas
+                          ?.map((sintoma) => sintoma.nome)
+                          .join(", ") || "Sintomas não disponíveis"}
                       </Typography>
                     </AccordionDetails>
                   </Accordion>
@@ -167,6 +182,6 @@ const DoencaListView = () => {
       )}
     </Box>
   );
-};
+});
 
 export default DoencaListView;

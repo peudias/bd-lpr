@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ISintoma } from "../../../libs/typings";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const baseURL =
   process.env.NODE_ENV === "production"
@@ -13,7 +13,7 @@ console.log(baseURL);
 function UseSintoma() {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const list = async () => {
+  const list = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get<ISintoma[]>(`${baseURL}/sintoma`);
@@ -23,7 +23,7 @@ function UseSintoma() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const getSintomaById = async (id: number) => {
     setLoading(true);
@@ -68,7 +68,7 @@ function UseSintoma() {
     }
   };
 
-  const deleteSintoma = async (id: number) => {
+  const deleteSintoma = useCallback(async (id: number) => {
     setLoading(true);
     try {
       const response = await axios.delete(`${baseURL}/sintoma/${id}`);
@@ -79,7 +79,7 @@ function UseSintoma() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return {
     loading,

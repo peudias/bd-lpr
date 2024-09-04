@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import SintomaListView from "./sintomaListView";
 import { useNavigate } from "react-router-dom";
 import UseSintoma from "../api/sintomaApi";
 import { ISintoma } from "../../../libs/typings";
@@ -8,7 +7,11 @@ interface ISintomaListContollerContext {
   todoList: ISintoma[];
   loading: boolean;
   onAdd: () => void;
-  onDelete: (row: any) => void;
+  onDelete: (id: number) => void;
+}
+
+interface SintomaListControllerProps {
+  children?: React.ReactNode;
 }
 
 export const SintomaListControllerContext =
@@ -16,7 +19,9 @@ export const SintomaListControllerContext =
     {} as ISintomaListContollerContext
   );
 
-const SintomaListController = () => {
+const SintomaListController: React.FC<SintomaListControllerProps> = ({
+  children,
+}) => {
   const navigate = useNavigate();
   const { list, loading, deleteSintoma } = UseSintoma();
   const [result, setResults] = useState<ISintoma[]>([]);
@@ -33,18 +38,21 @@ const SintomaListController = () => {
     };
 
     fetchSintomas();
-  }, []);
-
-  const sintomas = result ?? ([] as ISintoma[]);
-  const totalItens = sintomas?.length ?? 0;
+  }, [list]);
 
   const onAdd = useCallback(() => {
     navigate(`/sintoma/create`);
-  }, []);
+  }, [navigate]);
 
-  const onDelete = useCallback(async (id: number) => {
-    await deleteSintoma(id);
-  }, []);
+  const onDelete = useCallback(
+    async (id: number) => {
+      await deleteSintoma(id);
+      setResults((prevResults) =>
+        prevResults.filter((sintoma) => sintoma.id !== id)
+      );
+    },
+    [deleteSintoma]
+  );
 
   const providerValues: ISintomaListContollerContext = useMemo(
     () => ({
@@ -52,14 +60,13 @@ const SintomaListController = () => {
       loading,
       onAdd,
       onDelete,
-      totalItens,
     }),
-    [result, loading]
+    [result, loading, onAdd, onDelete]
   );
 
   return (
     <SintomaListControllerContext.Provider value={providerValues}>
-      <SintomaListView />
+      {children}
     </SintomaListControllerContext.Provider>
   );
 };
