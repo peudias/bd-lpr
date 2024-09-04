@@ -4,7 +4,7 @@ import DoencaDetailController from "./DoencaDetail/doencaDetailController";
 import DoencaListController from "./DoencaList/doencaControllerList";
 import SintomaListController from "../sintoma/SintomaList/sintomaControllerList";
 import SintomaDetailController from "../sintoma/SintomaDetail/sintomaDetailController";
-
+//
 export interface IDoencaModuleContext {
   state?: string;
   id?: string;
