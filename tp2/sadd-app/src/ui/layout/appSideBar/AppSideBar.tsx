@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,6 +18,9 @@ import Avatar from "@mui/material/Avatar";
 import logo from "../../../assets/imgs/logo.png";
 import { useNavigate } from "react-router-dom";
 import logoImage from "../../../assets/imgs/logo.png";
+import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 
 interface Props {
   window?: () => Window;
@@ -25,15 +29,14 @@ interface Props {
 interface IRoutes {
   name: string;
   path: string;
+  icon?: JSX.Element;
 }
 
 const drawerWidth = 240;
 const navItems: IRoutes[] = [
-  { name: "Home", path: "/home" },
-  { name: "Doença", path: "/doenca/view" },
-  { name: "Patógeno", path: "/patogeno/view" },
-  { name: "Sintoma", path: "/sintoma/view" },
-  { name: "Registros", path: "/logging" },
+  { name: "Home", path: "/home", icon: <HomeOutlinedIcon /> },
+  { name: "Doenças", path: "/doenca/view", icon: <CoronavirusOutlinedIcon /> },
+  { name: "Registros", path: "/logging", icon: <AssignmentOutlinedIcon /> },
 ];
 
 export default function DrawerAppBar(props: Props) {
@@ -63,7 +66,9 @@ export default function DrawerAppBar(props: Props) {
             width: 50,
             height: 50,
             mb: 1,
+            cursor: "pointer",
           }}
+          onClick={() => navigate("/home")}
         />
         <Typography
           variant="h6"
@@ -80,11 +85,12 @@ export default function DrawerAppBar(props: Props) {
         {navItems.map((item, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
-              sx={{ textAlign: "center" }}
+              sx={{ justifyContent: "flex-start", paddingLeft: 2 }}
               onClick={() => {
                 navigate(item.path);
               }}
             >
+              {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
               <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
@@ -111,7 +117,12 @@ export default function DrawerAppBar(props: Props) {
             <MenuIcon />
           </IconButton>
           <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-            <Avatar alt="Logo" src={logo} sx={{ mr: 2 }} />
+            <Avatar
+              alt="Logo"
+              src={logo}
+              sx={{ mr: 2, cursor: "pointer" }}
+              onClick={() => navigate("/home")}
+            />
             <Typography
               variant="h6"
               component="div"
@@ -131,6 +142,7 @@ export default function DrawerAppBar(props: Props) {
                 onClick={() => {
                   navigate(item.path);
                 }}
+                startIcon={item.icon}
               >
                 {item.name}
               </Button>

@@ -57,6 +57,7 @@ const Home = () => {
               path: "/doenca/view",
               icon: <CoronavirusOutlinedIcon />,
             },
+            /*
             {
               text: "Patógenos",
               path: "/patogeno/view",
@@ -66,7 +67,7 @@ const Home = () => {
               text: "Sintomas",
               path: "/sintoma/view",
               icon: <HealingOutlinedIcon />,
-            },
+            },*/
           ].map((item, index) => (
             <Grid item xs={6} sm={3} md={2} key={index}>
               <Button
