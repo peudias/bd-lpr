@@ -23,6 +23,7 @@ import { DoencaListControllerContext } from "./doencaControllerList";
 import { SintomaListControllerContext } from "../../sintoma/SintomaList/sintomaControllerList";
 import { LoadingContainer } from "./doencaListViewStyle";
 import { IDoenca, ISintoma } from "../../../libs/typings";
+import { useNavigate } from "react-router-dom";
 
 const DoencaListView: React.FC = React.memo(() => {
   const { todoList: doencaToDoList, loading: doencaLoading } = useContext(
@@ -32,6 +33,7 @@ const DoencaListView: React.FC = React.memo(() => {
     SintomaListControllerContext
   );
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const listaDeDoencas: IDoenca[] = Array.isArray(doencaToDoList)
     ? doencaToDoList
@@ -39,9 +41,6 @@ const DoencaListView: React.FC = React.memo(() => {
   const listaDeSintomas: ISintoma[] = Array.isArray(sintomaToDoList)
     ? sintomaToDoList
     : [];
-
-  // console.log("listaDeDoencas ", listaDeDoencas);
-  // console.log("listaDeSintomas ", listaDeSintomas);
 
   const listaDeDoencasComSintomas = listaDeDoencas.map((doenca) => ({
     ...doenca,
@@ -91,6 +90,10 @@ const DoencaListView: React.FC = React.memo(() => {
     doc.save("relatorio_de_doencas.pdf");
   };
 
+  const handleCadastrarDoenca = () => {
+    navigate("/doenca/create");
+  };
+
   if (doencaLoading || sintomaLoading) {
     return (
       <LoadingContainer>
@@ -115,14 +118,26 @@ const DoencaListView: React.FC = React.memo(() => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={generatePDF}
-        sx={{ marginTop: "16px", marginBottom: "24px" }}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          gap: 2,
+          marginTop: "16px",
+          marginBottom: "24px",
+        }}
       >
-        Gerar PDF
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleCadastrarDoenca}
+        >
+          Cadastrar Doença
+        </Button>
+        <Button variant="contained" color="primary" onClick={generatePDF}>
+          Gerar PDF
+        </Button>
+      </Box>
       <TableContainer
         component={Paper}
         sx={{ maxWidth: "100%", overflowX: "auto", padding: "16px" }}
