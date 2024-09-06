@@ -11,7 +11,7 @@ import { PatogenoListControllerContext } from "./patogenoControllerList";
 import { LoadingContainer } from "./patogenoListViewStyle";
 import { PageLayout } from "../../../ui/layout/pageLayout/PageLayout";
 import { useNavigate } from "react-router-dom";
-import { TableLayout } from "../../../ui/components";
+import { TableLayoutPatogeno } from "../../../ui/components";
 import { IPatogeno } from "../../../libs/typings";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
@@ -38,17 +38,11 @@ const PatogenoListView = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredTodoList = todoList
-    .map((item: IPatogeno) => ({
-      id: item.id,
-      nome: item.nome_cientifico,
-      categoria: item.tipo,
-    }))
-    .filter(
-      (item) =>
-        item.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.categoria.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+  const filteredTodoList = todoList.filter(
+    (item) =>
+      item.nome_cientifico.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const searchsOption = (
     <Box sx={{ maxWidth: "360px", width: "100%" }}>
@@ -94,14 +88,9 @@ const PatogenoListView = () => {
       titleComponent={titlePage}
       searchs={searchsOption}
       actions={buttonsOption}
-      onBack={() => {}}
     >
       {filteredTodoList.length > 0 ? (
-        <TableLayout
-          todolist={filteredTodoList}
-          editPath="patogeno"
-          deletePath="deletePath"
-        />
+        <TableLayoutPatogeno todolist={filteredTodoList} />
       ) : (
         <Typography variant="body1">Nenhum patógeno encontrado.</Typography>
       )}

@@ -15,7 +15,7 @@ interface IPatogenoDetailContollerContext {
   handleClosePage: () => void;
   document: IPatogeno | undefined;
   loading: boolean;
-  onSubmit: (doc: IPatogeno) => void;
+  onCreate: (doc: IPatogeno) => void;
   handleChange: (id: string) => void;
 }
 
@@ -27,7 +27,7 @@ export const PatogenoDetailControllerContext =
 const PatogenoDetailController = () => {
   const navigate = useNavigate();
   const { id, state } = useContext(PatogenoModuleContext);
-  const { getPatogenoById, updatePatogeno, loading } = UsePatogeno();
+  const { getPatogenoById, createPatogeno, loading } = UsePatogeno();
   const [result, setResults] = useState<IPatogeno | undefined>(undefined);
 
   useEffect(() => {
@@ -54,20 +54,14 @@ const PatogenoDetailController = () => {
     navigate(`/pedido/edit/${id}`, { replace: true });
   }, []);
 
-  const onSubmit = useCallback(async (doc: IPatogeno) => {
-    await updatePatogeno(doc);
+  const onCreate = useCallback(async (doc: IPatogeno) => {
+    try {
+      const response = await createPatogeno(doc);
+      console.log("Patógeno criado com sucesso = ", response);
+    } catch (error) {
+      console.error("Erro ao cadastrar patógeno:", error);
+    }
   }, []);
-
-  const isAtivo = {
-    type: Array<String>,
-    label: "Ativo",
-    optional: false,
-    options: () => [
-      { value: "Sim", label: "Sim" },
-      { value: "Não", label: "Não" },
-    ],
-    visibilityFunction: () => state !== "edit",
-  };
 
   return (
     <PatogenoDetailControllerContext.Provider
@@ -75,7 +69,7 @@ const PatogenoDetailController = () => {
         handleClosePage,
         document: result,
         loading,
-        onSubmit,
+        onCreate,
         handleChange,
       }}
     >

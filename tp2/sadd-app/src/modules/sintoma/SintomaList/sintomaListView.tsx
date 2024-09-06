@@ -11,7 +11,6 @@ import { SintomaListControllerContext } from "./sintomaControllerList";
 import { LoadingContainer } from "./sintomaListViewStyle";
 import { PageLayout } from "../../../ui/layout";
 import { useNavigate } from "react-router-dom";
-import { TableLayout } from "../../../ui/components";
 import { ISintoma } from "../../../libs/typings";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
@@ -97,11 +96,7 @@ const SintomaListView = () => {
       onBack={() => {}}
     >
       {filteredTodoList.length > 0 ? (
-        <TableLayout
-          todolist={filteredTodoList}
-          editPath="sintoma"
-          deletePath="deletePath"
-        />
+        <Typography>Criar tabela sintomas</Typography>
       ) : (
         <Typography variant="body1">Nenhum sintoma encontrado.</Typography>
       )}

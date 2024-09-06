@@ -11,6 +11,18 @@ const LoadingContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-const PatogenoDetailStyles: ISxStyleObject = {};
+const Center = styled(Box)(({ theme }) => ({
+  maxWidth: "500px",
+  width: "100%",
+  margin: "80px auto",
+}));
 
-export { LoadingContainer, PatogenoDetailStyles };
+const PatogenoDetailStyles: ISxStyleObject = {
+  formContent: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "25px",
+  },
+};
+
+export { LoadingContainer, Center, PatogenoDetailStyles };

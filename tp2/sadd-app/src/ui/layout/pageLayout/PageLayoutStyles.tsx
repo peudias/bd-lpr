@@ -4,7 +4,7 @@ const Page = styled(Box)(({ theme }) => ({
   width: "100%",
   maxWidth: "960px",
   margin: "0 auto",
-  padding: "0 20px",
+  padding: "0 20px 48px 20px",
   display: "flex",
   gap: "18px",
   justifyContent: "flex-start",

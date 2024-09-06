@@ -21,6 +21,7 @@ import logoImage from "../../../assets/imgs/logo.png";
 import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import VaccinesOutlinedIcon from "@mui/icons-material/VaccinesOutlined";
 
 interface Props {
   window?: () => Window;
@@ -36,6 +37,11 @@ const drawerWidth = 240;
 const navItems: IRoutes[] = [
   { name: "Home", path: "/home", icon: <HomeOutlinedIcon /> },
   { name: "Doenças", path: "/doenca/view", icon: <CoronavirusOutlinedIcon /> },
+  {
+    name: "Patógenos",
+    path: "/patogeno/view",
+    icon: <VaccinesOutlinedIcon />,
+  },
   { name: "Registros", path: "/logging", icon: <AssignmentOutlinedIcon /> },
 ];
 
