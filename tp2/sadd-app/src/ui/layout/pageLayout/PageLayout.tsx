@@ -5,7 +5,7 @@ import {
   TitlePage,
   SearchContainer,
 } from "./PageLayoutStyles";
-import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface IPageLayout {
@@ -16,7 +16,7 @@ interface IPageLayout {
   titleComponent?: React.ReactNode;
 }
 
-const PageLayout: React.FC<IPageLayout> = ({
+export const PageLayout: React.FC<IPageLayout> = ({
   children,
   actions,
   searchs,
@@ -50,5 +50,3 @@ const PageLayout: React.FC<IPageLayout> = ({
     </Page>
   );
 };
-
-export default PageLayout;

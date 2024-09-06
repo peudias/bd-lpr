@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { PatogenoListControllerContext } from "./patogenoControllerList";
 import { LoadingContainer } from "./patogenoListViewStyle";
-import PageLayout from "../../../ui/layout/pageLayout/PageLayout";
+import { PageLayout } from "../../../ui/layout/pageLayout/PageLayout";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";

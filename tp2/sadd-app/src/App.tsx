@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./routes";
 import { CustomTheme } from "./ui/themes";
 import { GlobalStyles } from "@mui/material";
-import DrawerAppBar from "./ui/layout/appSideBar/AppSideBar";
+import { DrawerAppBar } from "./ui/layout/appSideBar/AppSideBar";
 
 export const App = () => {
   return (
