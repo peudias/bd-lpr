@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,6 +17,10 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../../assets/imgs/logo.png";
 import { useNavigate } from "react-router-dom";
+import logoImage from "../../../assets/imgs/logo.png";
+import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 
 interface Props {
   window?: () => Window;
@@ -24,13 +29,14 @@ interface Props {
 interface IRoutes {
   name: string;
   path: string;
+  icon?: JSX.Element;
 }
 
 const drawerWidth = 240;
 const navItems: IRoutes[] = [
-  { name: "Home", path: "/home" },
-  { name: "Patógeno", path: "/patogeno/view" },
-  { name: "Registro", path: "/logging" },
+  { name: "Home", path: "/home", icon: <HomeOutlinedIcon /> },
+  { name: "Doenças", path: "/doenca/view", icon: <CoronavirusOutlinedIcon /> },
+  { name: "Registros", path: "/logging", icon: <AssignmentOutlinedIcon /> },
 ];
 
 export function DrawerAppBar(props: Props) {
@@ -44,19 +50,47 @@ export function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        SADD - Sistema de Apoio ao Diagnóstico de Doenças
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          backgroundColor: "#46818B",
+          padding: 2,
+        }}
+      >
+        <Avatar
+          alt="Logo"
+          src={logoImage}
+          sx={{
+            width: 50,
+            height: 50,
+            mb: 1,
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/home")}
+        />
+        <Typography
+          variant="h6"
+          sx={{
+            color: "#FFFFFF",
+            fontFamily: "'SUSE', sans-serif",
+          }}
+        >
+          Meu SADD
+        </Typography>
+      </Box>
       <Divider />
       <List>
         {navItems.map((item, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
-              sx={{ textAlign: "center" }}
+              sx={{ justifyContent: "flex-start", paddingLeft: 2 }}
               onClick={() => {
                 navigate(item.path);
               }}
             >
+              {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
               <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
@@ -83,13 +117,21 @@ export function DrawerAppBar(props: Props) {
             <MenuIcon />
           </IconButton>
           <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-            <Avatar alt="Logo" src={logo} sx={{ mr: 2 }} />
+            <Avatar
+              alt="Logo"
+              src={logo}
+              sx={{ mr: 2, cursor: "pointer" }}
+              onClick={() => navigate("/home")}
+            />
             <Typography
               variant="h6"
               component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
+              sx={{
+                display: { xs: "none", sm: "block" },
+                fontFamily: "'SUSE', sans-serif",
+              }}
             >
-              SADD - Sistema de Apoio ao Diagnóstico de Doenças
+              Meu SADD - Sistema de Apoio ao Diagnóstico de Doenças
             </Typography>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
@@ -100,6 +142,7 @@ export function DrawerAppBar(props: Props) {
                 onClick={() => {
                   navigate(item.path);
                 }}
+                startIcon={item.icon}
               >
                 {item.name}
               </Button>

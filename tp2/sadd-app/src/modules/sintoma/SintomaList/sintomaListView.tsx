@@ -7,17 +7,17 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
-import { PatogenoListControllerContext } from "./patogenoControllerList";
-import { LoadingContainer } from "./patogenoListViewStyle";
-import { PageLayout } from "../../../ui/layout/pageLayout/PageLayout";
+import { SintomaListControllerContext } from "./sintomaControllerList";
+import { LoadingContainer } from "./sintomaListViewStyle";
+import PageLayout from "../../../ui/layout/pageLayout/PageLayout";
 import { useNavigate } from "react-router-dom";
 import { TableLayout } from "../../../ui/components";
-import { IPatogeno } from "../../../libs/typings";
+import { ISintoma } from "../../../libs/typings";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
-const PatogenoListView = () => {
+const SintomaListView = () => {
   const { todoList, loading, onAdd } = React.useContext(
-    PatogenoListControllerContext
+    SintomaListControllerContext
   );
   const navigate = useNavigate();
 
@@ -39,10 +39,10 @@ const PatogenoListView = () => {
   };
 
   const filteredTodoList = todoList
-    .map((item: IPatogeno) => ({
+    .map((item: ISintoma) => ({
       id: item.id,
-      nome: item.nome_cientifico,
-      categoria: item.tipo,
+      nome: item.nome,
+      categoria: item.nivel_de_ocorrencia,
     }))
     .filter(
       (item) =>
@@ -54,7 +54,7 @@ const PatogenoListView = () => {
     <Box sx={{ maxWidth: "360px", width: "100%" }}>
       <TextField
         sx={{ width: "100%" }}
-        id="search-patogeno"
+        id="search-sintoma"
         label="Pesquisar"
         variant="outlined"
         value={searchTerm}
@@ -77,20 +77,20 @@ const PatogenoListView = () => {
         sx={{ minWidth: "100%" }}
         variant="contained"
       >
-        Cadastrar Patógeno
+        Cadastrar Sintoma
       </Button>
     </Box>
   );
 
   const titlePage = (
     <Box>
-      <Typography variant="h5">Patógenos</Typography>
+      <Typography variant="h5">Sintomas</Typography>
     </Box>
   );
 
   return (
     <PageLayout
-      key={"PatogenoPageLayoutListKEY"}
+      key={"SintomaPageLayoutListKEY"}
       titleComponent={titlePage}
       searchs={searchsOption}
       actions={buttonsOption}
@@ -99,14 +99,14 @@ const PatogenoListView = () => {
       {filteredTodoList.length > 0 ? (
         <TableLayout
           todolist={filteredTodoList}
-          editPath="patogeno"
+          editPath="sintoma"
           deletePath="deletePath"
         />
       ) : (
-        <Typography variant="body1">Nenhum patógeno encontrado.</Typography>
+        <Typography variant="body1">Nenhum sintoma encontrado.</Typography>
       )}
     </PageLayout>
   );
 };
 
-export default PatogenoListView;
+export default SintomaListView;
