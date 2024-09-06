@@ -24,6 +24,7 @@ import { SintomaListControllerContext } from "../../sintoma/SintomaList/sintomaC
 import { LoadingContainer } from "./doencaListViewStyle";
 import { IDoenca, ISintoma } from "../../../libs/typings";
 import { useNavigate } from "react-router-dom";
+import { PageLayout } from "../../../ui/layout";
 
 const DoencaListView: React.FC = React.memo(() => {
   const { todoList: doencaToDoList, loading: doencaLoading } = useContext(
@@ -105,39 +106,45 @@ const DoencaListView: React.FC = React.memo(() => {
     );
   }
 
-  return (
-    <Box sx={{ padding: "20px" }}>
-      <Typography variant="h6" sx={{ marginBottom: "16px" }}>
-        Pesquisar doenças
-      </Typography>
-      <TextField
-        label="Pesquisar"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-start",
-          gap: 2,
-          marginTop: "16px",
-          marginBottom: "24px",
-        }}
+  const acoes = (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "flex-start",
+        gap: 2,
+        marginTop: "16px",
+        marginBottom: "24px",
+      }}
+    >
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleCadastrarDoenca}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleCadastrarDoenca}
-        >
-          Cadastrar Doença
-        </Button>
-        <Button variant="contained" color="primary" onClick={generatePDF}>
-          Gerar PDF
-        </Button>
-      </Box>
+        Cadastrar Doença
+      </Button>
+      <Button variant="contained" color="primary" onClick={generatePDF}>
+        Gerar PDF
+      </Button>
+    </Box>
+  );
+
+  return (
+    <PageLayout
+      titleComponent={<Typography variant="body1">Doenças</Typography>}
+      actions={acoes}
+      searchs={
+        <TextField
+          sx={{ maxWidth: "360px", width: "100%" }}
+          label="Pesquisar"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      }
+    >
       <TableContainer
         component={Paper}
         sx={{ maxWidth: "100%", overflowX: "auto", padding: "16px" }}
@@ -195,7 +202,7 @@ const DoencaListView: React.FC = React.memo(() => {
           Nenhuma doença encontrada.
         </Typography>
       )}
-    </Box>
+    </PageLayout>
   );
 });
 

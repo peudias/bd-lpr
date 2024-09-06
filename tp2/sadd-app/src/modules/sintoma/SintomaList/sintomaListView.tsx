@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { SintomaListControllerContext } from "./sintomaControllerList";
 import { LoadingContainer } from "./sintomaListViewStyle";
-import PageLayout from "../../../ui/layout/pageLayout/PageLayout";
+import { PageLayout } from "../../../ui/layout";
 import { useNavigate } from "react-router-dom";
 import { TableLayout } from "../../../ui/components";
 import { ISintoma } from "../../../libs/typings";
