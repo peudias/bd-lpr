@@ -19,20 +19,8 @@ const PatogenoListView = () => {
   const { todoList, loading, onAdd } = React.useContext(
     PatogenoListControllerContext
   );
-  const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
-
-  if (loading) {
-    return (
-      <LoadingContainer>
-        <CircularProgress />
-        <Typography variant="body1">
-          Aguarde, carregando informações...
-        </Typography>
-      </LoadingContainer>
-    );
-  }
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -89,7 +77,14 @@ const PatogenoListView = () => {
       searchs={searchsOption}
       actions={buttonsOption}
     >
-      {filteredTodoList.length > 0 ? (
+      {loading ? (
+        <LoadingContainer>
+          <CircularProgress />
+          <Typography variant="body1">
+            Aguarde, carregando informações...
+          </Typography>
+        </LoadingContainer>
+      ) : filteredTodoList.length > 0 ? (
         <TableLayoutPatogeno todolist={filteredTodoList} />
       ) : (
         <Typography variant="body1">Nenhum patógeno encontrado.</Typography>

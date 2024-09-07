@@ -30,7 +30,7 @@ const SintomaListController: React.FC<SintomaListControllerProps> = ({
     const fetchSintomas = async () => {
       try {
         const result = await list();
-        console.log("resultado = ", result);
+        console.log("resultados sintomas= ", result);
         setResults(result ?? []);
       } catch (error) {
         console.error("Erro ao buscar sintomas:", error);

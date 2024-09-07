@@ -1,1 +1,2 @@
-export * from "./table/TablePatogeno";
+export * from "./tablePatogeno/TablePatogeno";
+export * from "./tableDoenca/TableDoenca";

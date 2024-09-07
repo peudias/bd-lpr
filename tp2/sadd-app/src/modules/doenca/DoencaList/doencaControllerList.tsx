@@ -8,7 +8,7 @@ interface IDoencaListContollerContext {
   todoList: IDoenca[];
   loading: boolean;
   onAdd: () => void;
-  onDelete: (row: any) => void;
+  totalItens: number;
 }
 
 export const DoencaListControllerContext =
@@ -18,14 +18,14 @@ export const DoencaListControllerContext =
 
 const DoencaListController = () => {
   const navigate = useNavigate();
-  const { list, loading, deleteDoenca } = UseDoenca();
+  const { list, loading } = UseDoenca();
   const [result, setResults] = useState<IDoenca[]>([]);
 
   useEffect(() => {
     const fetchDoencas = async () => {
       try {
         const result = await list();
-        console.log("resultado = ", result);
+        console.log("resultados doença = ", result);
         setResults(result ?? []);
       } catch (error) {
         console.error("Erro ao buscar doenças:", error);
@@ -42,16 +42,11 @@ const DoencaListController = () => {
     navigate(`/doenca/create`);
   }, []);
 
-  const onDelete = useCallback(async (id: number) => {
-    await deleteDoenca(id);
-  }, []);
-
   const providerValues: IDoencaListContollerContext = useMemo(
     () => ({
       todoList: result,
       loading,
       onAdd,
-      onDelete,
       totalItens,
     }),
     [result, loading]

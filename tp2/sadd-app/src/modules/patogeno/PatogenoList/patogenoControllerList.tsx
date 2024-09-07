@@ -8,7 +8,7 @@ interface IPatogenoListContollerContext {
   todoList: IPatogeno[];
   loading: boolean;
   onAdd: () => void;
-  onDelete: (row: any) => void;
+  totalItens: number;
 }
 
 export const PatogenoListControllerContext =
@@ -18,14 +18,14 @@ export const PatogenoListControllerContext =
 
 const PatogenoListController = () => {
   const navigate = useNavigate();
-  const { list, loading, deletePatogeno } = UsePatogeno();
+  const { list, loading } = UsePatogeno();
   const [result, setResults] = useState<IPatogeno[]>([]);
 
   useEffect(() => {
     const fetchPatogenos = async () => {
       try {
         const result = await list();
-        console.log("resultado = ", result);
+        console.log("resultados patógenos = ", result);
         setResults(result ?? []);
       } catch (error) {
         console.error("Erro ao buscar patógenos:", error);
@@ -42,16 +42,11 @@ const PatogenoListController = () => {
     navigate(`/patogeno/create`);
   }, []);
 
-  const onDelete = useCallback(async (id: number) => {
-    await deletePatogeno(id);
-  }, []);
-
   const providerValues: IPatogenoListContollerContext = useMemo(
     () => ({
       todoList: result,
       loading,
       onAdd,
-      onDelete,
       totalItens,
     }),
     [result, loading]

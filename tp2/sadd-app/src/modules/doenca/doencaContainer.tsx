@@ -2,9 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import DoencaDetailController from "./DoencaDetail/doencaDetailController";
 import DoencaListController from "./DoencaList/doencaControllerList";
-import SintomaListController from "../sintoma/SintomaList/sintomaControllerList";
-import SintomaDetailController from "../sintoma/SintomaDetail/sintomaDetailController";
-//
+
 export interface IDoencaModuleContext {
   state?: string;
   id?: string;
@@ -22,20 +20,12 @@ const DoencaModule = () => {
 
   const renderPage = () => {
     if (!state || !validState.includes(state)) {
-      return (
-        <SintomaListController>
-          <DoencaListController />{" "}
-        </SintomaListController>
-      );
+      return <DoencaListController />;
     }
     if (state === "view") {
-      return (
-        <SintomaListController>
-          <DoencaListController />{" "}
-        </SintomaListController>
-      );
+      return <DoencaListController />;
     } else if (state === "edit" || state === "create") {
-      return <SintomaDetailController />;
+      return <DoencaDetailController />;
     }
   };
 

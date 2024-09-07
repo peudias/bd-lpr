@@ -8,16 +8,14 @@ export interface IPatogeno {
 
 export interface IDoenca {
   id: number;
-  patogeno_id: number;
+  patogeno: IPatogeno;
   CID: string;
-  nomes_tecnicos: string;
-  nomes_populares: string;
-  sintomas?: ISintoma[];
+  nome_tecnico: string;
+  nomes_populares?: string[];
 }
 
 export interface ISintoma {
   id: number;
-  doenca_id: number;
   nome: string;
   nivel_de_ocorrencia:
     | "Muito Comum"
@@ -31,10 +29,10 @@ export interface ISxStyleObject {
   [key: string]: SxProps;
 }
 
-declare module "jspdf" {
-  interface jsPDF {
-    autoTable: (options: any) => jsPDF;
-  }
-}
+// declare module "jspdf" {
+//   interface jsPDF {
+//     autoTable: (options: any) => jsPDF;
+//   }
+// }
 
-declare module "jspdf-autotable";
+// declare module "jspdf-autotable";
