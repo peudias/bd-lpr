@@ -10,7 +10,7 @@ export interface IDoenca {
   id?: number;
   patogeno: IPatogeno;
   CID: string;
-  nome_tecnico: string;
+  nomes_tecnicos: string;
   nomes_populares?: INomesPopulares[];
 }
 

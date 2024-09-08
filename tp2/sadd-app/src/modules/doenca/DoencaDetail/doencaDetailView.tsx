@@ -23,7 +23,7 @@ import { INomesPopulares } from "../../../libs/typings";
 export type IFormDoenca = {
   patogeno: string;
   CID: string;
-  nome_tecnico: string;
+  nomes_tecnicos: string;
   nomes_populares: string[];
 };
 
@@ -41,7 +41,7 @@ const DoencaDetailView = () => {
     defaultValues: {
       patogeno: "",
       CID: "",
-      nome_tecnico: "",
+      nomes_tecnicos: "",
       nomes_populares: [],
     },
   });
@@ -111,11 +111,11 @@ const DoencaDetailView = () => {
                 <TextField
                   label="Nome Técnico"
                   type="text"
-                  {...register("nome_tecnico", {
+                  {...register("nomes_tecnicos", {
                     required: "Campo obrigatório",
                   })}
-                  error={!!errors.nome_tecnico}
-                  helperText={errors.nome_tecnico?.message}
+                  error={!!errors.nomes_tecnicos}
+                  helperText={errors.nomes_tecnicos?.message}
                 />
                 <SelectGrupoNomePopular
                   readOnly={false}

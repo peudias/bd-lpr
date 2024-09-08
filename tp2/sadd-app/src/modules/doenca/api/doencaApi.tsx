@@ -27,10 +27,10 @@ function UseDoenca() {
     }
   };
 
-  const getDoencaById = async (id: number) => {
+  const getDoencaById = async (id: string | undefined) => {
     setLoading(true);
     try {
-      const response = await axios.get<IDoenca>(`${baseURL}/doenca`);
+      const response = await axios.get<IDoenca>(`${baseURL}/doenca/${id}`);
       return response.data;
     } catch (error) {
       console.error(`Erro ao buscar doença com ID ${id}:`, error);

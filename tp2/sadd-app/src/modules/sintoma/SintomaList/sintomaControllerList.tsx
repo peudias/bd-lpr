@@ -1,17 +1,23 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import UseSintoma from "../api/sintomaApi";
-import { ISintoma } from "../../../libs/typings";
+import { IDoenca, ISintoma } from "../../../libs/typings";
+import { SintomaModuleContext } from "../sintomaContainer";
+import SintomaListView from "./sintomaListView";
+import UseDoenca from "../../doenca/api/doencaApi";
 
 interface ISintomaListContollerContext {
   todoList: ISintoma[];
   loading: boolean;
   onAdd: () => void;
-  onDelete: (id: number) => void;
-}
-
-interface SintomaListControllerProps {
-  children?: React.ReactNode;
+  totalItens: number;
+  doenca: IDoenca | undefined;
 }
 
 export const SintomaListControllerContext =
@@ -19,54 +25,51 @@ export const SintomaListControllerContext =
     {} as ISintomaListContollerContext
   );
 
-const SintomaListController: React.FC<SintomaListControllerProps> = ({
-  children,
-}) => {
+const SintomaListController = () => {
   const navigate = useNavigate();
-  const { list, loading, deleteSintoma } = UseSintoma();
+  const { list, loading } = UseSintoma();
+  const { getDoencaById } = UseDoenca();
   const [result, setResults] = useState<ISintoma[]>([]);
+  const { id } = useContext(SintomaModuleContext);
+  const [doenca, setDoenca] = useState<IDoenca>();
 
   useEffect(() => {
     const fetchSintomas = async () => {
       try {
-        const result = await list();
-        console.log("resultados sintomas= ", result);
+        const result = await list(id);
+        console.log("resultados patogenos = ", result);
         setResults(result ?? []);
+        const doencaBack = await getDoencaById(id);
+        setDoenca(doencaBack);
       } catch (error) {
-        console.error("Erro ao buscar sintomas:", error);
+        console.error("Erro ao buscar doenças:", error);
       }
     };
 
     fetchSintomas();
-  }, [list]);
+  }, []);
+
+  const sintomas = result ?? ([] as ISintoma[]);
+  const totalItens = sintomas?.length ?? 0;
 
   const onAdd = useCallback(() => {
     navigate(`/sintoma/create`);
   }, [navigate]);
 
-  const onDelete = useCallback(
-    async (id: number) => {
-      await deleteSintoma(id);
-      setResults((prevResults) =>
-        prevResults.filter((sintoma) => sintoma.id !== id)
-      );
-    },
-    [deleteSintoma]
-  );
-
   const providerValues: ISintomaListContollerContext = useMemo(
     () => ({
-      todoList: result,
+      todoList: sintomas,
       loading,
       onAdd,
-      onDelete,
+      totalItens,
+      doenca,
     }),
-    [result, loading, onAdd, onDelete]
+    [result, loading, onAdd, doenca]
   );
 
   return (
     <SintomaListControllerContext.Provider value={providerValues}>
-      {children}
+      <SintomaListView />
     </SintomaListControllerContext.Provider>
   );
 };

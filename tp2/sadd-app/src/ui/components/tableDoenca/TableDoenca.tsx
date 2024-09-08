@@ -49,7 +49,7 @@ export const TableLayoutDoenca: React.FC<ITable> = ({ todolist }) => {
                     id={`panel-${doenca.id}-header`}
                   >
                     <Typography>
-                      {doenca.nome_tecnico || "Nome técnico não disponível"}
+                      {doenca.nomes_tecnicos || "Nome técnico não disponível"}
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>

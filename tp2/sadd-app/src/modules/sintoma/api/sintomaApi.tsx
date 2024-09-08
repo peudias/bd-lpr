@@ -10,22 +10,10 @@ const baseURL =
 function UseSintoma() {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const list = useCallback(async () => {
+  const list = async (id: string | undefined) => {
     setLoading(true);
     try {
-      const response = await axios.get<ISintoma[]>(`${baseURL}/sintoma`);
-      return response.data;
-    } catch (error) {
-      console.error("Erro ao buscar sintomas:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  const getSintomaById = async (id: number) => {
-    setLoading(true);
-    try {
-      const response = await axios.get<ISintoma>(`${baseURL}/sintoma`);
+      const response = await axios.get<ISintoma[]>(`${baseURL}/sintoma/${id}`);
       return response.data;
     } catch (error) {
       console.error(`Erro ao buscar sintoma com ID ${id}:`, error);
@@ -81,7 +69,6 @@ function UseSintoma() {
   return {
     loading,
     list,
-    getSintomaById,
     createSintoma,
     updateSintoma,
     deleteSintoma,

@@ -1,104 +1,63 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Typography,
-  TextField,
-  InputAdornment,
-} from "@mui/material";
+import { useContext } from "react";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { SintomaListControllerContext } from "./sintomaControllerList";
 import { LoadingContainer } from "./sintomaListViewStyle";
 import { PageLayout } from "../../../ui/layout";
-import { useNavigate } from "react-router-dom";
-import { ISintoma } from "../../../libs/typings";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { TableLayoutSintomas } from "../../../ui/components";
 
 const SintomaListView = () => {
-  const { todoList, loading, onAdd } = React.useContext(
+  const { todoList, loading, onAdd, doenca } = useContext(
     SintomaListControllerContext
   );
-  const navigate = useNavigate();
 
-  const [searchTerm, setSearchTerm] = useState("");
-
-  if (loading) {
-    return (
-      <LoadingContainer>
-        <CircularProgress />
-        <Typography variant="body1">
-          Aguarde, carregando informações...
-        </Typography>
-      </LoadingContainer>
-    );
-  }
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const filteredTodoList = todoList
-    .map((item: ISintoma) => ({
-      id: item.id,
-      nome: item.nome,
-      categoria: item.nivel_de_ocorrencia,
-    }))
-    .filter(
-      (item) =>
-        item.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.categoria.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-  const searchsOption = (
-    <Box sx={{ maxWidth: "360px", width: "100%" }}>
-      <TextField
-        sx={{ width: "100%" }}
-        id="search-sintoma"
-        label="Pesquisar"
-        variant="outlined"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start" sx={{ mr: 1 }}>
-              <SearchOutlinedIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-    </Box>
-  );
-
-  const buttonsOption = (
-    <Box>
-      <Button
-        onClick={() => onAdd()}
-        sx={{ minWidth: "100%" }}
-        variant="contained"
-      >
-        Cadastrar Sintoma
+  const acoes = (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "flex-start",
+        gap: 2,
+        marginTop: "16px",
+        marginBottom: "24px",
+      }}
+    >
+      <Button variant="contained" color="primary" onClick={onAdd}>
+        Cadastrar Sintomas
       </Button>
     </Box>
   );
 
-  const titlePage = (
-    <Box>
-      <Typography variant="h5">Sintomas</Typography>
-    </Box>
-  );
+  console.log(doenca);
 
   return (
     <PageLayout
-      key={"SintomaPageLayoutListKEY"}
-      titleComponent={titlePage}
-      searchs={searchsOption}
-      actions={buttonsOption}
-      onBack={() => {}}
+      titleComponent={
+        <Typography variant="h5">
+          {doenca
+            ? `Sintomas de ${doenca.nomes_tecnicos} (${doenca.CID})`
+            : "Sintomas"}
+        </Typography>
+      }
+      actions={acoes}
     >
-      {filteredTodoList.length > 0 ? (
-        <Typography>Criar tabela sintomas</Typography>
+      {loading ? (
+        <LoadingContainer>
+          <CircularProgress />
+          <Typography variant="body1">
+            Aguarde, carregando informações...
+          </Typography>
+        </LoadingContainer>
+      ) : todoList.length === 0 ? (
+        <LoadingContainer>
+          <Typography
+            variant="h6"
+            sx={{ paddingTop: { xs: "20px", sm: "60px" } }}
+          >
+            Essa doença ainda não possui sintomas.
+          </Typography>
+          <Typography variant="h6">Cadastre novos quando quiser!</Typography>
+        </LoadingContainer>
       ) : (
-        <Typography variant="body1">Nenhum sintoma encontrado.</Typography>
+        <TableLayoutSintomas todolist={todoList} />
       )}
     </PageLayout>
   );
