@@ -12,6 +12,7 @@ import {
   Accordion,
   AccordionDetails,
   Button,
+  useTheme,
 } from "@mui/material";
 import { IDoenca } from "../../../libs/typings";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -23,6 +24,8 @@ interface ITable {
 
 export const TableLayoutDoenca: React.FC<ITable> = ({ todolist }) => {
   const navigate = useNavigate();
+  const theme = useTheme();
+
   return (
     <TableContainer
       component={Paper}
@@ -32,7 +35,6 @@ export const TableLayoutDoenca: React.FC<ITable> = ({ todolist }) => {
         <TableHead>
           <TableRow>
             <TableCell>Nome Técnico</TableCell>
-            <TableCell align="center">Sintomas</TableCell>
             <TableCell align="right">CID</TableCell>
           </TableRow>
         </TableHead>
@@ -43,35 +45,35 @@ export const TableLayoutDoenca: React.FC<ITable> = ({ todolist }) => {
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
+                    aria-controls={`panel-${doenca.id}-content`}
+                    id={`panel-${doenca.id}-header`}
                   >
                     <Typography>
                       {doenca.nome_tecnico || "Nome técnico não disponível"}
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Typography>
+                    <Typography sx={{ color: theme.palette.primary.main }}>
                       Nome Popular:{" "}
-                      {doenca.nomes_populares
+                      {doenca.nomes_populares &&
+                      doenca.nomes_populares.length > 0
                         ? doenca.nomes_populares.join(", ")
                         : "Não possui nenhum"}
                     </Typography>
-                    <Typography>
+                    <Typography sx={{ color: theme.palette.primary.main }}>
                       Patógeno: {doenca.patogeno.nome_cientifico} -{" "}
                       {doenca.patogeno.tipo}
                     </Typography>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      sx={{ marginTop: "8px" }}
+                      onClick={() => navigate(`/sintoma/view/${doenca.id}`)}
+                    >
+                      Acessar Sintomas
+                    </Button>
                   </AccordionDetails>
                 </Accordion>
-              </TableCell>
-              <TableCell align="center">
-                <Button
-                  onClick={() => {
-                    navigate(`/sintoma/view/${doenca.id}`);
-                  }}
-                >
-                  ACESSAR
-                </Button>
               </TableCell>
               <TableCell align="right">
                 {doenca.CID || "CID não disponível"}
