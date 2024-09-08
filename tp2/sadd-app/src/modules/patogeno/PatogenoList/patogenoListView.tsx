@@ -10,7 +10,6 @@ import {
 import { PatogenoListControllerContext } from "./patogenoControllerList";
 import { LoadingContainer } from "./patogenoListViewStyle";
 import { PageLayout } from "../../../ui/layout/pageLayout/PageLayout";
-import { useNavigate } from "react-router-dom";
 import { TableLayoutPatogeno } from "../../../ui/components";
 import jsPDF from "jspdf";
 import "jspdf-autotable";

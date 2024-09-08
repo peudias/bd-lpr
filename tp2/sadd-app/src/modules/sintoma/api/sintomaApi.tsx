@@ -2,6 +2,10 @@ import axios from "axios";
 import { ISintoma } from "../../../libs/typings";
 import { useState, useCallback } from "react";
 
+type returnAll = {
+  nome: string;
+};
+
 const baseURL =
   process.env.NODE_ENV === "production"
     ? "https://meusadd-back.vercel.app/api"
@@ -17,6 +21,18 @@ function UseSintoma() {
       return response.data;
     } catch (error) {
       console.error(`Erro ao buscar sintoma com ID ${id}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const listAll = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get<returnAll[]>(`${baseURL}/sintoma`);
+      return response.data.map((obj) => obj.nome);
+    } catch (error) {
+      console.error(`Erro ao buscar sintomas`, error);
     } finally {
       setLoading(false);
     }
@@ -75,6 +91,7 @@ function UseSintoma() {
     createSintoma,
     updateSintoma,
     deleteSintoma,
+    listAll,
   };
 }
 

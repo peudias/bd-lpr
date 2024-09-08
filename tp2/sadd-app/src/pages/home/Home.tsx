@@ -14,7 +14,7 @@ import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
 import fakeNewsImage from "../../assets/imgs/fakeNews.png";
 import atualizacaoCaderneta from "../../assets/imgs/caderneta.jpeg";
 import orientacoesCaderneta from "../../assets/imgs/caderneta2.jpg";
-import HealingOutlinedIcon from "@mui/icons-material/HealingOutlined";
+import DevicesFoldOutlinedIcon from "@mui/icons-material/DevicesFoldOutlined";
 import VaccinesOutlinedIcon from "@mui/icons-material/VaccinesOutlined";
 
 const Home = () => {
@@ -61,11 +61,6 @@ const Home = () => {
               path: "/patogeno/view",
               icon: <VaccinesOutlinedIcon />,
             },
-            /*{
-              text: "Sintomas",
-              path: "/sintoma/view",
-              icon: <HealingOutlinedIcon />,
-            },*/
           ].map((item, index) => (
             <Grid item xs={6} sm={3} md={2} key={index}>
               <Button
@@ -84,24 +79,21 @@ const Home = () => {
       <Container sx={{ mt: 4 }}>
         <Typography variant="h6">Mini apps</Typography>
         <Grid container spacing={2} sx={{ mt: 2 }}>
-          {[
-            "Consultar todas as Doenças",
-            "Consultar Sintomas de uma Doença específica",
-            "Consultar todas as Doenças e seus respectivos Sintomas",
-            "Consultar o número de Doenças para cada tipo de Patógeno",
-            "Consultar estatísticas armazenadas no sistema",
-            "Consultar estatísticas sobre os Sintomas",
-            "Consultar lista de Doenças com determinado conjunto de Sintomas",
-            "Consultar as Doenças mais prováveis",
-          ].map((app, index) => (
-            <Grid item xs={6} sm={3} md={2} key={index}>
-              <Button variant="outlined" fullWidth sx={{ height: "100%" }}>
-                <Typography variant="body2" align="center">
-                  {app}
-                </Typography>
-              </Button>
-            </Grid>
-          ))}
+          <Grid item xs={6} sm={3} md={2}>
+            <Button
+              variant="outlined"
+              fullWidth
+              sx={{ height: "100%", padding: "5px 15px" }}
+              onClick={() => {
+                navigate("/apoio/diagnostico");
+              }}
+              startIcon={<DevicesFoldOutlinedIcon />}
+            >
+              <Typography variant="body2" align="center">
+                {"Diagnóstico de apoio"}
+              </Typography>
+            </Button>
+          </Grid>
         </Grid>
       </Container>
 
