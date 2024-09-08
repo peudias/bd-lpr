@@ -3,6 +3,11 @@ import { IDoenca } from "../../../libs/typings";
 import { useState } from "react";
 import { IFormDoenca } from "../DoencaDetail/doencaDetailView";
 
+export type DiagnosticoType = {
+  id: number;
+  nomes_tecnicos: string;
+};
+
 const baseURL =
   process.env.NODE_ENV === "production"
     ? "https://meusadd-back.vercel.app/api"
@@ -34,6 +39,21 @@ function UseDoenca() {
       return response.data;
     } catch (error) {
       console.error(`Erro ao buscar doença com ID ${id}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getDiagnostico = async (sintomas: string[] | undefined) => {
+    setLoading(true);
+    try {
+      const response = await axios.post<DiagnosticoType[]>(
+        `${baseURL}/doenca/diagnostico`,
+        { sintomas }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(`Erro ao buscar diagnostico:`, error);
     } finally {
       setLoading(false);
     }
@@ -97,6 +117,7 @@ function UseDoenca() {
     deleteDoenca,
     callBack,
     alertType,
+    getDiagnostico,
   };
 }
 

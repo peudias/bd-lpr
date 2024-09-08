@@ -41,9 +41,8 @@ export const SelectForm: React.FC<SelectFormProps> = ({
         value={value}
         label={label}
         onChange={handleChange}
-        name={name} // Ensure the name matches the field name
+        name={name}
       >
-        {/* Pass children directly here */}
         {children}
       </Select>
       {error && <FormHelperText>{error.message}</FormHelperText>}
