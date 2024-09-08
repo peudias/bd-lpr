@@ -27,15 +27,12 @@ export const SintomaDetailControllerContext =
 const SintomaDetailController = () => {
   const navigate = useNavigate();
   const { id, state } = useContext(SintomaModuleContext);
-  const { getSintomaById, updateSintoma, loading } = UseSintoma();
+  const { updateSintoma, loading } = UseSintoma();
   const [result, setResults] = useState<ISintoma | undefined>(undefined);
 
   useEffect(() => {
     const fetchSintomas = async () => {
       try {
-        const numericId = Number(id);
-        const result = await getSintomaById(numericId);
-        setResults(result);
       } catch (error) {
         console.error("Erro ao buscar sintomas:", error);
       }

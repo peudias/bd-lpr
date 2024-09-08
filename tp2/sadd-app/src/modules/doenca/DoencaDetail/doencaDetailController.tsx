@@ -45,8 +45,7 @@ const DoencaDetailController = () => {
   useEffect(() => {
     const fetchDoencas = async () => {
       try {
-        const numericId = Number(id);
-        const result = await getDoencaById(numericId);
+        const result = await getDoencaById(id);
         setResults(result);
       } catch (error) {
         console.error("Erro ao buscar doenças:", error);
