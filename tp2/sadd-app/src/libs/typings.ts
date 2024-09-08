@@ -11,7 +11,7 @@ export interface IDoenca {
   patogeno: IPatogeno;
   CID: string;
   nomes_tecnicos: string;
-  nomes_populares?: INomesPopulares[];
+  nomes_populares?: string[];
 }
 
 export interface INomesPopulares {
@@ -34,10 +34,8 @@ export interface ISxStyleObject {
   [key: string]: SxProps;
 }
 
-// declare module "jspdf" {
-//   interface jsPDF {
-//     autoTable: (options: any) => jsPDF;
-//   }
-// }
-
-// declare module "jspdf-autotable";
+declare module "jspdf" {
+  interface jsPDF {
+    autoTable: (options: any) => jsPDF;
+  }
+}
