@@ -40,7 +40,7 @@ const DoencaListView = () => {
     );
 
     const body = todoList.map((doenca) => [
-      doenca.nome_tecnico,
+      doenca.nomes_tecnicos,
       doenca.CID,
       doenca.patogeno.nome_cientifico,
       doenca.patogeno.tipo,
@@ -71,7 +71,7 @@ const DoencaListView = () => {
   const pesquisarDoencas = todoList.filter((doenca) => {
     const searchLower = searchTerm.toLowerCase();
     return (
-      doenca.nome_tecnico.toLowerCase().includes(searchLower) ||
+      doenca.nomes_tecnicos.toLowerCase().includes(searchLower) ||
       doenca.CID.toLowerCase().includes(searchLower) ||
       doenca.patogeno.nome_cientifico.toLowerCase().includes(searchLower) ||
       doenca.patogeno.tipo.toLowerCase().includes(searchLower) ||
