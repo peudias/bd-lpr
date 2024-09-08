@@ -13,11 +13,13 @@ import { TableLayoutDoenca } from "../../../ui/components";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { useNavigate } from "react-router-dom";
+import UseDoenca from "../api/doencaApi";
 
 const DoencaListView = () => {
   const navigate = useNavigate();
   const { todoList, loading, onAdd } = useContext(DoencaListControllerContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const { logPdf } = UseDoenca();
 
   const gerarRelatorioPDF = () => {
     const doc = new jsPDF();
@@ -75,6 +77,7 @@ const DoencaListView = () => {
       .replace(/\//g, "-")}_${agora.getHours()}-${agora.getMinutes()}`;
 
     doc.save(`relatorio_doencas_${dataHoraFormatada}.pdf`);
+    logPdfDoenca();
   };
 
   const pesquisarDoencas = todoList.filter((doenca) => {
@@ -147,6 +150,12 @@ const DoencaListView = () => {
       )}
     </PageLayout>
   );
+
+  async function logPdfDoenca() {
+    try {
+      await logPdf();
+    } catch (error) {}
+  }
 };
 
 export default DoencaListView;

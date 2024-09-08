@@ -15,6 +15,17 @@ function UseDoenca() {
     "success" | "error" | "warning" | "info"
   >("info");
 
+  const logPdf = async () => {
+    setLoading(true);
+    try {
+      await axios.get<IDoenca[]>(`${baseURL}/log`);
+    } catch (error) {
+      console.error("Erro ao gerar pdf:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const list = async () => {
     setLoading(true);
     try {
@@ -97,6 +108,7 @@ function UseDoenca() {
     deleteDoenca,
     callBack,
     alertType,
+    logPdf,
   };
 }
 
