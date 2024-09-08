@@ -15,6 +15,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import UsePatogeno from "../api/patogenoApi";
+import { useNavigate } from "react-router-dom";
 
 const PatogenoListView = () => {
   const navigate = useNavigate();
