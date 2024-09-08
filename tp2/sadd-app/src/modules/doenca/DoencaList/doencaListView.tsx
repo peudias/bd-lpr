@@ -12,8 +12,10 @@ import { PageLayout } from "../../../ui/layout";
 import { TableLayoutDoenca } from "../../../ui/components";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { useNavigate } from "react-router-dom";
 
 const DoencaListView = () => {
+  const navigate = useNavigate();
   const { todoList, loading, onAdd } = useContext(DoencaListControllerContext);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -43,6 +45,10 @@ const DoencaListView = () => {
       doenca.patogeno.nome_cientifico,
       doenca.patogeno.tipo,
       doenca.nomes_populares?.join(", ") || "Nenhum",
+      doenca.sintomas?.map((sintoma) => sintoma.nome).join(", ") || "Nenhum",
+      doenca.sintomas
+        ?.map((sintoma) => sintoma.nivel_de_ocorrencia)
+        .join(", ") || "Nenhum",
     ]);
 
     doc.autoTable({
@@ -54,6 +60,8 @@ const DoencaListView = () => {
           "Patógeno",
           "Tipo de Patógeno",
           "Nomes Populares",
+          "Sintomas",
+          "Nível de Ocorrência",
         ],
       ],
       body: body,
@@ -123,6 +131,9 @@ const DoencaListView = () => {
     <PageLayout
       titleComponent={<Typography variant="h5">Doenças</Typography>}
       actions={acoes}
+      onBack={() => {
+        navigate(-1);
+      }}
     >
       {loading ? (
         <LoadingContainer>
