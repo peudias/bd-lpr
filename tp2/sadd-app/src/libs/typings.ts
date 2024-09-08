@@ -11,7 +11,7 @@ export interface IDoenca {
   patogeno: IPatogeno;
   CID: string;
   nome_tecnico: string;
-  nomes_populares?: INomesPopulares[];
+  nomes_populares?: string[];
 }
 
 export interface INomesPopulares {
