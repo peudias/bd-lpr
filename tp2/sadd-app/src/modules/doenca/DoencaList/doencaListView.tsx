@@ -74,6 +74,14 @@ const DoencaListView = () => {
     return (
       doenca.nomes_tecnicos.toLowerCase().includes(searchLower) ||
       doenca.CID.toLowerCase().includes(searchLower) ||
+      (Array.isArray(doenca.sintomas) &&
+        doenca.sintomas.some((sintoma) =>
+          sintoma.nome.toLowerCase().includes(searchLower)
+        )) ||
+      (Array.isArray(doenca.sintomas) &&
+        doenca.sintomas.some((sintoma) =>
+          sintoma.nivel_de_ocorrencia.toLowerCase().includes(searchLower)
+        )) ||
       doenca.patogeno.nome_cientifico.toLowerCase().includes(searchLower) ||
       doenca.patogeno.tipo.toLowerCase().includes(searchLower) ||
       (Array.isArray(doenca.nomes_populares) &&
