@@ -34,10 +34,8 @@ export interface ISxStyleObject {
   [key: string]: SxProps;
 }
 
-// declare module "jspdf" {
-//   interface jsPDF {
-//     autoTable: (options: any) => jsPDF;
-//   }
-// }
-
-// declare module "jspdf-autotable";
+declare module "jspdf" {
+  interface jsPDF {
+    autoTable: (options: any) => jsPDF;
+  }
+}
