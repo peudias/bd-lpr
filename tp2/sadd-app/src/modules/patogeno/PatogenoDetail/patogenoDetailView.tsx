@@ -37,7 +37,7 @@ const PatogenoDetailView = () => {
         </Box>
       }
       onBack={() => {
-        navigate(-1);
+        navigate(`/patogeno/view`);
       }}
     >
       <Center>

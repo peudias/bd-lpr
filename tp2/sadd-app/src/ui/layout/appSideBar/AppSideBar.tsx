@@ -47,8 +47,8 @@ const navItems: IRoutes[] = [
     name: "Sintomas",
     path: "/sintoma/view",
     icon: <HealingOutlinedIcon />,
-  },*/
-  { name: "Registros", path: "/logging", icon: <AssignmentOutlinedIcon /> },
+  },
+  { name: "Registros", path: "/logging", icon: <AssignmentOutlinedIcon /> },*/
 ];
 
 export function DrawerAppBar(props: Props) {

@@ -61,7 +61,7 @@ const DoencaDetailView = () => {
           </Typography>
         </Box>
       }
-      onBack={() => navigate(-1)}
+      onBack={() => navigate(`/doenca/view`)}
     >
       {loading ? (
         <LoadingContainer>

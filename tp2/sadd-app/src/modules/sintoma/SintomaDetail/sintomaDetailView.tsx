@@ -48,7 +48,7 @@ const SintomaDetailView = () => {
         </Box>
       }
       onBack={() => {
-        navigate(-1);
+        navigate(`/sintoma/view/${doenca?.id}`);
       }}
     >
       <Center>

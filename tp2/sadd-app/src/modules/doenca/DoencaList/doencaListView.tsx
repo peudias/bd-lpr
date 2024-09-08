@@ -132,7 +132,7 @@ const DoencaListView = () => {
       titleComponent={<Typography variant="h5">Doenças</Typography>}
       actions={acoes}
       onBack={() => {
-        navigate(-1);
+        navigate(`/doenca`);
       }}
     >
       {loading ? (

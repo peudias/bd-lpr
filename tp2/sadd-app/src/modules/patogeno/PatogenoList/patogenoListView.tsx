@@ -114,7 +114,7 @@ const PatogenoListView = () => {
       titleComponent={titlePage}
       actions={buttonsOption}
       onBack={() => {
-        navigate(-1);
+        navigate(`/home`);
       }}
     >
       {loading ? (
