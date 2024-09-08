@@ -15,6 +15,7 @@ import { TableLayoutPatogeno } from "../../../ui/components";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import UsePatogeno from "../api/patogenoApi";
 
 const PatogenoListView = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const PatogenoListView = () => {
     PatogenoListControllerContext
   );
   const [searchTerm, setSearchTerm] = useState("");
+  const { logPdf } = UsePatogeno();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -72,6 +74,7 @@ const PatogenoListView = () => {
       .replace(/\//g, "-")}_${agora.getHours()}-${agora.getMinutes()}`;
 
     doc.save(`relatorio_patogenos_${dataHoraFormatada}.pdf`);
+    logPdfPatogeno();
   };
 
   const buttonsOption = (
@@ -131,6 +134,12 @@ const PatogenoListView = () => {
       )}
     </PageLayout>
   );
+
+  async function logPdfPatogeno() {
+    try {
+      await logPdf();
+    } catch (error) {}
+  }
 };
 
 export default PatogenoListView;

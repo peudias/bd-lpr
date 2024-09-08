@@ -10,6 +10,17 @@ const baseURL =
 function UsePatogeno() {
   const [loading, setLoading] = useState<boolean>(false);
 
+  const logPdf = async () => {
+    setLoading(true);
+    try {
+      await axios.get<IPatogeno[]>(`${baseURL}/log`);
+    } catch (error) {
+      console.error("Erro ao gerar pdf:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const list = async () => {
     setLoading(true);
     try {
@@ -85,6 +96,7 @@ function UsePatogeno() {
     createPatogeno,
     updatePatogeno,
     deletePatogeno,
+    logPdf,
   };
 }
 
