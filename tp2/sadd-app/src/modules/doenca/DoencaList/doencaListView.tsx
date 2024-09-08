@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { DoencaListControllerContext } from "./doencaControllerList";
 import { LoadingContainer } from "./doencaListViewStyle";
-import { useNavigate } from "react-router-dom";
 import { PageLayout } from "../../../ui/layout";
 import { TableLayoutDoenca } from "../../../ui/components";
 import jsPDF from "jspdf";
@@ -17,7 +16,6 @@ import "jspdf-autotable";
 const DoencaListView = () => {
   const { todoList, loading, onAdd } = useContext(DoencaListControllerContext);
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
 
   const gerarRelatorioPDF = () => {
     const doc = new jsPDF();
@@ -34,12 +32,12 @@ const DoencaListView = () => {
     });
 
     doc.text(
-      `Relatório de Doenças - Hora da impressão: ${dataAtual} às ${horaAtual}`,
+      `Relatório de Doenças - Horário da impressão: ${dataAtual} às ${horaAtual}`,
       20,
       20
     );
 
-    const body = todoList.map((doenca) => [
+    const body = pesquisarDoencas.map((doenca) => [
       doenca.nomes_tecnicos,
       doenca.CID,
       doenca.patogeno.nome_cientifico,
@@ -59,6 +57,9 @@ const DoencaListView = () => {
         ],
       ],
       body: body,
+      headStyles: {
+        fillColor: [70, 129, 139],
+      },
     });
 
     const dataHoraFormatada = `${agora
