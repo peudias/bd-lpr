@@ -26,8 +26,6 @@ const SintomaListView = () => {
     </Box>
   );
 
-  console.log(doenca);
-
   return (
     <PageLayout
       titleComponent={

@@ -3,20 +3,22 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import SintomaDetailView from "./sintomaDetailView";
 import { useNavigate } from "react-router-dom";
-import { ISintoma } from "../../../libs/typings";
+import { IDoenca, ISintoma } from "../../../libs/typings";
 import { SintomaModuleContext } from "../sintomaContainer";
 import UseSintoma from "../api/sintomaApi";
+import UseDoenca from "../../doenca/api/doencaApi";
 
 interface ISintomaDetailContollerContext {
   handleClosePage: () => void;
   document: ISintoma | undefined;
   loading: boolean;
-  onSubmit: (doc: ISintoma) => void;
-  handleChange: (id: string) => void;
+  doenca: IDoenca | undefined;
+  onCreate: (doc: ISintoma) => void;
 }
 
 export const SintomaDetailControllerContext =
@@ -27,18 +29,22 @@ export const SintomaDetailControllerContext =
 const SintomaDetailController = () => {
   const navigate = useNavigate();
   const { id, state } = useContext(SintomaModuleContext);
-  const { updateSintoma, loading } = UseSintoma();
+  const { getDoencaById } = UseDoenca();
+  const { createSintoma, loading } = UseSintoma();
   const [result, setResults] = useState<ISintoma | undefined>(undefined);
+  const [doenca, setDoenca] = useState<IDoenca>();
 
   useEffect(() => {
     const fetchSintomas = async () => {
       try {
+        const doencaBack = await getDoencaById(id);
+        setDoenca(doencaBack);
       } catch (error) {
         console.error("Erro ao buscar sintomas:", error);
       }
     };
 
-    if (state === "edit" && id) {
+    if (id) {
       fetchSintomas();
     }
   }, [state, id]);
@@ -47,35 +53,26 @@ const SintomaDetailController = () => {
     navigate(-1);
   }, []);
 
-  const handleChange = useCallback((id: string) => {
-    navigate(`/pedido/edit/${id}`, { replace: true });
-  }, []);
+  const onCreate = useCallback(
+    async (doc: ISintoma) => {
+      await createSintoma(doc, id);
+    },
+    [createSintoma]
+  );
 
-  const onSubmit = useCallback(async (doc: ISintoma) => {
-    await updateSintoma(doc);
-  }, []);
-
-  const isAtivo = {
-    type: Array<String>,
-    label: "Ativo",
-    optional: false,
-    options: () => [
-      { value: "Sim", label: "Sim" },
-      { value: "Não", label: "Não" },
-    ],
-    visibilityFunction: () => state !== "edit",
-  };
+  const providerValues: ISintomaDetailContollerContext = useMemo(
+    () => ({
+      handleClosePage,
+      document: result,
+      loading,
+      onCreate,
+      doenca,
+    }),
+    [result, loading, doenca]
+  );
 
   return (
-    <SintomaDetailControllerContext.Provider
-      value={{
-        handleClosePage,
-        document: result,
-        loading,
-        onSubmit,
-        handleChange,
-      }}
-    >
+    <SintomaDetailControllerContext.Provider value={providerValues}>
       <SintomaDetailView />
     </SintomaDetailControllerContext.Provider>
   );

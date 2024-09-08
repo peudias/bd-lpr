@@ -12,6 +12,7 @@ export interface IDoenca {
   CID: string;
   nomes_tecnicos: string;
   nomes_populares?: string[];
+  sintomas: ISintoma[];
 }
 
 export interface INomesPopulares {
@@ -27,7 +28,8 @@ export interface ISintoma {
     | "Comum"
     | "Pouco Comum"
     | "Raro"
-    | "Muito Raro";
+    | "Muito Raro"
+    | "";
 }
 
 export interface ISxStyleObject {
