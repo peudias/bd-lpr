@@ -5,7 +5,6 @@ import {
   CircularProgress,
   Typography,
   TextField,
-  InputAdornment,
 } from "@mui/material";
 import { PatogenoListControllerContext } from "./patogenoControllerList";
 import { LoadingContainer } from "./patogenoListViewStyle";
@@ -13,7 +12,6 @@ import { PageLayout } from "../../../ui/layout/pageLayout/PageLayout";
 import { TableLayoutPatogeno } from "../../../ui/components";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import UsePatogeno from "../api/patogenoApi";
 import { useNavigate } from "react-router-dom";
 
