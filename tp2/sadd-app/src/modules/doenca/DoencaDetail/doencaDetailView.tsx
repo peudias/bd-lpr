@@ -48,7 +48,6 @@ const DoencaDetailView = () => {
 
   const navigate = useNavigate();
 
-  const [patogenoid, setPatogenoid] = React.useState<string>("");
   const [nomesPopulares, setNomesPopulares] = React.useState<INomesPopulares[]>(
     []
   );
@@ -72,78 +71,85 @@ const DoencaDetailView = () => {
           </Typography>
         </LoadingContainer>
       ) : (
-        <Left>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={DoencaDetailStyles.formContent}>
-              <Box sx={DoencaDetailStyles.formFirstLine}>
+        <>
+          <Left>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Box sx={DoencaDetailStyles.formContent}>
+                <Box sx={DoencaDetailStyles.formFirstLine}>
+                  <TextField
+                    label="CID"
+                    type="text"
+                    {...register("CID", { required: "Campo obrigatório" })}
+                    error={!!errors.CID}
+                    helperText={errors.CID?.message}
+                    sx={DoencaDetailStyles.inputText}
+                  />
+                  <Controller
+                    name="patogeno"
+                    control={control}
+                    rules={{ required: "Campo obrigatório" }}
+                    render={({ field }) => (
+                      <SelectForm
+                        name="patogeno"
+                        label="Patógeno"
+                        value={field.value}
+                        handleChange={(event) =>
+                          field.onChange(event.target.value)
+                        }
+                        sx={DoencaDetailStyles.inputText}
+                        error={errors.patogeno}
+                      >
+                        {patogenos?.map((item, index) => (
+                          <MenuItem key={index} value={item.id}>
+                            {item.nome_cientifico}
+                          </MenuItem>
+                        ))}
+                      </SelectForm>
+                    )}
+                  />
+                </Box>
                 <TextField
-                  label="CID"
+                  label="Nome Técnico"
                   type="text"
-                  {...register("CID", { required: "Campo obrigatório" })}
-                  error={!!errors.CID}
-                  helperText={errors.CID?.message}
-                  sx={DoencaDetailStyles.inputText}
+                  {...register("nome_tecnico", {
+                    required: "Campo obrigatório",
+                  })}
+                  error={!!errors.nome_tecnico}
+                  helperText={errors.nome_tecnico?.message}
                 />
-                <Controller
-                  name="patogeno"
-                  control={control}
-                  rules={{ required: "Campo obrigatório" }}
-                  render={({ field }) => (
-                    <SelectForm
-                      name="patogeno"
-                      label="Patógeno"
-                      value={field.value}
-                      handleChange={(event) =>
-                        field.onChange(event.target.value)
-                      }
-                      sx={DoencaDetailStyles.inputText}
-                      error={errors.patogeno}
-                    >
-                      {patogenos?.map((item, index) => (
-                        <MenuItem key={index} value={item.id}>
-                          {item.nome_cientifico}
-                        </MenuItem>
-                      ))}
-                    </SelectForm>
-                  )}
+                <SelectGrupoNomePopular
+                  readOnly={false}
+                  value={nomesPopulares}
+                  setValue={setNomesPopulares}
+                  label="Nomes polulares já selecionados: "
                 />
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  sx={DoencaDetailStyles.buttonSave}
+                >
+                  Salvar
+                </Button>
               </Box>
-              <TextField
-                label="Nome Técnico"
-                type="text"
-                {...register("nome_tecnico", { required: "Campo obrigatório" })}
-                error={!!errors.nome_tecnico}
-                helperText={errors.nome_tecnico?.message}
-              />
-              <SelectGrupoNomePopular
-                readOnly={false}
-                value={nomesPopulares}
-                setValue={setNomesPopulares}
-                label="Nomes polulares já selecionados: "
-              />
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                sx={DoencaDetailStyles.buttonSave}
-              >
-                Salvar
-              </Button>
-            </Box>
-          </form>
+            </form>
+          </Left>
           {callBack && <AlertComponent type={typeAlert} menssage={callBack} />}
-        </Left>
+        </>
       )}
     </PageLayout>
   );
 
-  function onSubmit(data: IFormDoenca) {
-    data.nomes_populares = nomesPopulares.map((item) => {
-      return item.nome as string;
-    });
-    console.log(data);
-    onCreate(data);
-    navigate("/doenca/view");
+  async function onSubmit(data: IFormDoenca) {
+    try {
+      data.nomes_populares = nomesPopulares.map((item) => {
+        return item.nome as string;
+      });
+
+      await onCreate(data);
+
+      navigate("/doenca/view");
+    } catch (error) {}
   }
 };
 

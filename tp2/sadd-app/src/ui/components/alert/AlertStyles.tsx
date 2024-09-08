@@ -2,15 +2,22 @@ import { ISxStyleObject } from "../../../libs/typings";
 
 export const AlertStyles: ISxStyleObject = {
   content: {
+    margin: "90px",
     position: "absolute",
-    bottom: "10px",
-    left: "20px",
+    top: "10px",
+    right: {
+      xs: "-60px",
+      sm: "-60px",
+      md: "10px",
+      lg: "10px",
+      xl: "10px",
+    },
     width: {
       xs: "250px",
       sm: "300px",
-      md: "700px",
-      lg: "700px",
-      xl: "700px",
+      md: "500px",
+      lg: "500px",
+      xl: "500px",
     },
   },
   alertProgressContainer: {

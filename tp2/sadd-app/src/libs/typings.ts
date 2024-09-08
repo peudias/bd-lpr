@@ -20,7 +20,7 @@ export interface INomesPopulares {
 }
 
 export interface ISintoma {
-  id: number;
+  id?: number;
   nome: string;
   nivel_de_ocorrencia:
     | "Muito Comum"
