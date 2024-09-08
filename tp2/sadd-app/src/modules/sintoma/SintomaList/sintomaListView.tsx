@@ -4,11 +4,14 @@ import { SintomaListControllerContext } from "./sintomaControllerList";
 import { LoadingContainer } from "./sintomaListViewStyle";
 import { PageLayout } from "../../../ui/layout";
 import { TableLayoutSintomas } from "../../../ui/components";
+import { useNavigate } from "react-router-dom";
 
 const SintomaListView = () => {
   const { todoList, loading, onAdd, doenca } = useContext(
     SintomaListControllerContext
   );
+
+  const navigate = useNavigate();
 
   const acoes = (
     <Box
@@ -35,6 +38,9 @@ const SintomaListView = () => {
             : "Sintomas"}
         </Typography>
       }
+      onBack={() => {
+        navigate(-1);
+      }}
       actions={acoes}
     >
       {loading ? (
