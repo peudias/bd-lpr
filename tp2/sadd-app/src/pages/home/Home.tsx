@@ -14,6 +14,8 @@ import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
 import fakeNewsImage from "../../assets/imgs/fakeNews.png";
 import atualizacaoCaderneta from "../../assets/imgs/caderneta.jpeg";
 import orientacoesCaderneta from "../../assets/imgs/caderneta2.jpg";
+import HealingOutlinedIcon from "@mui/icons-material/HealingOutlined";
+import VaccinesOutlinedIcon from "@mui/icons-material/VaccinesOutlined";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -54,13 +56,12 @@ const Home = () => {
               path: "/doenca/view",
               icon: <CoronavirusOutlinedIcon />,
             },
-            /*
             {
               text: "Patógenos",
               path: "/patogeno/view",
-              icon: <BiotechOutlinedIcon />,
+              icon: <VaccinesOutlinedIcon />,
             },
-            {
+            /*{
               text: "Sintomas",
               path: "/sintoma/view",
               icon: <HealingOutlinedIcon />,
@@ -159,6 +160,7 @@ const Home = () => {
           ))}
         </Grid>
       </Container>
+      <Box sx={{ height: 25 }} />
     </Box>
   );
 };

@@ -22,6 +22,7 @@ import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import VaccinesOutlinedIcon from "@mui/icons-material/VaccinesOutlined";
+import HealingOutlinedIcon from "@mui/icons-material/HealingOutlined";
 
 interface Props {
   window?: () => Window;
@@ -42,6 +43,11 @@ const navItems: IRoutes[] = [
     path: "/patogeno/view",
     icon: <VaccinesOutlinedIcon />,
   },
+  /*{
+    name: "Sintomas",
+    path: "/sintoma/view",
+    icon: <HealingOutlinedIcon />,
+  },*/
   { name: "Registros", path: "/logging", icon: <AssignmentOutlinedIcon /> },
 ];
 
