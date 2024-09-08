@@ -7,11 +7,16 @@ export interface IPatogeno {
 }
 
 export interface IDoenca {
-  id: number;
+  id?: number;
   patogeno: IPatogeno;
   CID: string;
   nome_tecnico: string;
-  nomes_populares?: string[];
+  nomes_populares?: INomesPopulares[];
+}
+
+export interface INomesPopulares {
+  doenca_id?: number;
+  nome: string;
 }
 
 export interface ISintoma {

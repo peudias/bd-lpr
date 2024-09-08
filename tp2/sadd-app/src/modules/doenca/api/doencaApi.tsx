@@ -1,17 +1,19 @@
 import axios from "axios";
 import { IDoenca } from "../../../libs/typings";
 import { useState } from "react";
+import { IFormDoenca } from "../DoencaDetail/doencaDetailView";
 
 const baseURL =
   process.env.NODE_ENV === "production"
     ? "https://meusadd-back.vercel.app/api"
     : "http://localhost:3001/api";
 
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log(baseURL);
-
 function UseDoenca() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [callBack, setCallBack] = useState<string | null>(null);
+  const [alertType, setAlertType] = useState<
+    "success" | "error" | "warning" | "info"
+  >("info");
 
   const list = async () => {
     setLoading(true);
@@ -37,16 +39,21 @@ function UseDoenca() {
     }
   };
 
-  const createDoenca = async (newDoenca: IDoenca) => {
+  const createDoenca = async (newDoenca: IFormDoenca) => {
     setLoading(true);
     try {
-      const response = await axios.post<IDoenca>(
+      const response = await axios.post<IFormDoenca>(
         `${baseURL}/doenca`,
         newDoenca
       );
       return response.data;
     } catch (error) {
       console.error("Erro ao criar doença:", error);
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.error || "Erro desconhecido"
+        : "Erro desconhecido";
+      setCallBack(message);
+      setAlertType("error");
       throw error;
     } finally {
       setLoading(false);
@@ -88,6 +95,8 @@ function UseDoenca() {
     createDoenca,
     updateDoenca,
     deleteDoenca,
+    callBack,
+    alertType,
   };
 }
 

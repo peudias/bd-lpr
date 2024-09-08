@@ -13,6 +13,7 @@ export const App = () => {
           html: { margin: 0, padding: 0, width: "100%", height: "100%" },
           body: { margin: 0, padding: 0, width: "100%", height: "100%" },
           "*": { boxSizing: "border-box" },
+          "body > iframe": { display: "none" }, // Add your CSS rule here
         }}
       />
       <BrowserRouter>

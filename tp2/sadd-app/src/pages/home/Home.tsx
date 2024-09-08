@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Grid,
@@ -12,8 +11,6 @@ import {
 import banner from "../../assets/imgs/banner.jpeg";
 import { useNavigate } from "react-router-dom";
 import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
-import BiotechOutlinedIcon from "@mui/icons-material/BiotechOutlined";
-import HealingOutlinedIcon from "@mui/icons-material/HealingOutlined";
 import fakeNewsImage from "../../assets/imgs/fakeNews.png";
 import atualizacaoCaderneta from "../../assets/imgs/caderneta.jpeg";
 import orientacoesCaderneta from "../../assets/imgs/caderneta2.jpg";

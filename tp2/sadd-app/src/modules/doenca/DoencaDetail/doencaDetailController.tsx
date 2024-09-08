@@ -5,18 +5,22 @@ import {
   useEffect,
   useState,
 } from "react";
-import DoencaDetailView from "./doencaDetailView";
+import DoencaDetailView, { IFormDoenca } from "./doencaDetailView";
 import { useNavigate } from "react-router-dom";
-import { IDoenca } from "../../../libs/typings";
+import { IDoenca, IPatogeno } from "../../../libs/typings";
 import { DoencaModuleContext } from "../doencaContainer";
 import UseDoenca from "../api/doencaApi";
+import UsePatogeno from "../../patogeno/api/patogenoApi";
 
 interface IDoencaDetailContollerContext {
   handleClosePage: () => void;
   document: IDoenca | undefined;
+  patogenos: IPatogeno[] | undefined;
   loading: boolean;
-  onSubmit: (doc: IDoenca) => void;
+  onCreate: (doc: IFormDoenca) => void;
   handleChange: (id: string) => void;
+  callBack: string | null;
+  typeAlert: "success" | "error" | "warning" | "info";
 }
 
 export const DoencaDetailControllerContext =
@@ -27,8 +31,16 @@ export const DoencaDetailControllerContext =
 const DoencaDetailController = () => {
   const navigate = useNavigate();
   const { id, state } = useContext(DoencaModuleContext);
-  const { getDoencaById, updateDoenca, loading } = UseDoenca();
+  const {
+    getDoencaById,
+    createDoenca,
+    loading: loadingDoenca,
+    callBack,
+    alertType,
+  } = UseDoenca();
+  const { list: listPatogenos, loading: loadingPatogeno } = UsePatogeno();
   const [result, setResults] = useState<IDoenca | undefined>(undefined);
+  const [patogenos, setPatogenos] = useState<IPatogeno[] | undefined>([]);
 
   useEffect(() => {
     const fetchDoencas = async () => {
@@ -41,42 +53,52 @@ const DoencaDetailController = () => {
       }
     };
 
+    const getPatogenos = async () => {
+      try {
+        const patogenosFromBack = await listPatogenos();
+        setPatogenos(patogenosFromBack);
+      } catch (error) {
+        console.error("Erro ao buscar patógenos:", error);
+      }
+    };
+
     if (state === "edit" && id) {
       fetchDoencas();
+    }
+    if (state === "create") {
+      getPatogenos();
     }
   }, [state, id]);
 
   const handleClosePage = useCallback(() => {
     navigate(-1);
-  }, []);
+  }, [navigate]);
 
-  const handleChange = useCallback((id: string) => {
-    navigate(`/pedido/edit/${id}`, { replace: true });
-  }, []);
+  const handleChange = useCallback(
+    (id: string) => {
+      navigate(`/pedido/edit/${id}`, { replace: true });
+    },
+    [navigate]
+  );
 
-  const onSubmit = useCallback(async (doc: IDoenca) => {
-    await updateDoenca(doc);
-  }, []);
-
-  const isAtivo = {
-    type: Array<String>,
-    label: "Ativo",
-    optional: false,
-    options: () => [
-      { value: "Sim", label: "Sim" },
-      { value: "Não", label: "Não" },
-    ],
-    visibilityFunction: () => state !== "edit",
-  };
+  const onCreate = useCallback(
+    async (doc: IFormDoenca) => {
+      await createDoenca(doc);
+    },
+    [createDoenca]
+  );
 
   return (
     <DoencaDetailControllerContext.Provider
       value={{
         handleClosePage,
         document: result,
-        loading,
-        onSubmit,
+        patogenos,
+        loading: loadingPatogeno || loadingDoenca,
+        onCreate,
         handleChange,
+        callBack,
+        typeAlert: alertType,
       }}
     >
       <DoencaDetailView />
