@@ -53,7 +53,7 @@ const SintomaListController = () => {
   const totalItens = sintomas?.length ?? 0;
 
   const onAdd = useCallback(() => {
-    navigate(`/sintoma/create`);
+    navigate(`/sintoma/create/${id}`);
   }, [navigate]);
 
   const providerValues: ISintomaListContollerContext = useMemo(

@@ -22,11 +22,14 @@ function UseSintoma() {
     }
   };
 
-  const createSintoma = async (newSintoma: ISintoma) => {
+  const createSintoma = async (
+    newSintoma: ISintoma,
+    doenca_id: string | undefined
+  ) => {
     setLoading(true);
     try {
       const response = await axios.post<ISintoma>(
-        `${baseURL}/sintoma`,
+        `${baseURL}/sintoma/${doenca_id}`,
         newSintoma
       );
       return response.data;
