@@ -21,3 +21,7 @@ Conjuntamente rode o back-end do projeto.
 ### Instruções backend
 
 Acesse o back-end em: [meusadd-back](https://github.com/peudias/meusadd-back)
+
+### Funcionalidades
+
+Acesse esse link para ver as [funcionalidades](https://github.com/peudias/bd-lpr/milestone/3)
