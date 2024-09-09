@@ -5,6 +5,7 @@ import {
   Typography,
   Button,
   TextField,
+  TablePagination,
 } from "@mui/material";
 import { DoencaListControllerContext } from "./doencaControllerList";
 import { LoadingContainer } from "./doencaListViewStyle";
@@ -21,9 +22,25 @@ const DoencaListView = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { logPdf } = UseDoenca();
 
-  const gerarRelatorioPDF = () => {
-    const doc = new jsPDF();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const gerarRelatorioPDF = (doencas: typeof todoList) => {
+    const doc = new jsPDF();
     const agora = new Date();
     const dataAtual = agora.toLocaleDateString("pt-BR", {
       day: "2-digit",
@@ -41,7 +58,7 @@ const DoencaListView = () => {
       20
     );
 
-    const body = pesquisarDoencas.map((doenca) => [
+    const body = doencas.map((doenca) => [
       doenca.nomes_tecnicos,
       doenca.CID,
       doenca.patogeno.nome_cientifico,
@@ -80,27 +97,29 @@ const DoencaListView = () => {
     logPdfDoenca();
   };
 
-  const pesquisarDoencas = todoList.filter((doenca) => {
-    const searchLower = searchTerm.toLowerCase();
-    return (
-      doenca.nomes_tecnicos.toLowerCase().includes(searchLower) ||
-      doenca.CID.toLowerCase().includes(searchLower) ||
-      (Array.isArray(doenca.sintomas) &&
-        doenca.sintomas.some((sintoma) =>
-          sintoma.nome.toLowerCase().includes(searchLower)
-        )) ||
-      (Array.isArray(doenca.sintomas) &&
-        doenca.sintomas.some((sintoma) =>
-          sintoma.nivel_de_ocorrencia.toLowerCase().includes(searchLower)
-        )) ||
-      doenca.patogeno.nome_cientifico.toLowerCase().includes(searchLower) ||
-      doenca.patogeno.tipo.toLowerCase().includes(searchLower) ||
-      (Array.isArray(doenca.nomes_populares) &&
-        doenca.nomes_populares.some((nomePopular) =>
-          nomePopular.toLowerCase().includes(searchLower)
-        ))
-    );
-  });
+  const pesquisarDoencas = todoList
+    .filter((doenca) => {
+      const searchLower = searchTerm.toLowerCase();
+      return (
+        doenca.nomes_tecnicos.toLowerCase().includes(searchLower) ||
+        doenca.CID.toLowerCase().includes(searchLower) ||
+        (Array.isArray(doenca.sintomas) &&
+          doenca.sintomas.some((sintoma) =>
+            sintoma.nome.toLowerCase().includes(searchLower)
+          )) ||
+        (Array.isArray(doenca.sintomas) &&
+          doenca.sintomas.some((sintoma) =>
+            sintoma.nivel_de_ocorrencia.toLowerCase().includes(searchLower)
+          )) ||
+        doenca.patogeno.nome_cientifico.toLowerCase().includes(searchLower) ||
+        doenca.patogeno.tipo.toLowerCase().includes(searchLower) ||
+        (Array.isArray(doenca.nomes_populares) &&
+          doenca.nomes_populares.some((nomePopular) =>
+            nomePopular.toLowerCase().includes(searchLower)
+          ))
+      );
+    })
+    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   const acoes = (
     <Box
@@ -123,8 +142,19 @@ const DoencaListView = () => {
         <Button variant="contained" color="primary" onClick={onAdd}>
           Cadastrar Doença
         </Button>
-        <Button variant="contained" color="primary" onClick={gerarRelatorioPDF}>
-          Gerar Relatório
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => gerarRelatorioPDF(todoList)}
+        >
+          Gerar Relatório (Todas as Doenças)
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => gerarRelatorioPDF(pesquisarDoencas)}
+        >
+          Gerar Relatório (Doenças Filtradas)
         </Button>
       </Box>
     </Box>
@@ -146,7 +176,17 @@ const DoencaListView = () => {
           </Typography>
         </LoadingContainer>
       ) : (
-        <TableLayoutDoenca todolist={pesquisarDoencas}></TableLayoutDoenca>
+        <>
+          <TableLayoutDoenca todolist={pesquisarDoencas}></TableLayoutDoenca>
+          <TablePagination
+            component="div"
+            count={todoList.length}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </>
       )}
     </PageLayout>
   );
