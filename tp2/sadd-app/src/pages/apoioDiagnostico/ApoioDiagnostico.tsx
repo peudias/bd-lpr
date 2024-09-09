@@ -1,17 +1,18 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
-import UseDoenca, { DiagnosticoType } from "../../modules/doenca/api/doencaApi";
+import UseDoenca from "../../modules/doenca/api/doencaApi";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "../../ui/layout";
-import { LoadingContainer } from "./ApoioDiagnosticoStyles";
+import { LoadingContainer, EsperandoSintomas } from "./ApoioDiagnosticoStyles";
 import { useEffect, useState } from "react";
 import UseSintoma from "../../modules/sintoma/api/sintomaApi";
-import { SelectVarios } from "../../ui/components";
+import { SelectVarios, TableLayoutDoenca } from "../../ui/components";
+import { IDoenca } from "../../libs/typings";
 
 const ApoioDiagnostico = () => {
   const { loading: loadingDoencas, getDiagnostico } = UseDoenca();
   const { listAll, loading: loadingSintomas } = UseSintoma();
   const [listaSintomas, setListaSintomas] = useState<string[]>();
-  const [response, setResponse] = useState<DiagnosticoType[] | undefined>();
+  const [response, setResponse] = useState<IDoenca[] | undefined>();
   const [sintomasSelecionados, setSintomasSelecionados] = useState<string[]>(
     []
   );
@@ -75,12 +76,12 @@ const ApoioDiagnostico = () => {
             Aguarde, carregando informações...
           </Typography>
         </LoadingContainer>
+      ) : response ? (
+        <TableLayoutDoenca todolist={response} />
       ) : (
-        <Box>
-          {response?.map((item) => (
-            <Typography variant="body1">{`${item.id} - ${item.nomes_tecnicos}`}</Typography>
-          ))}
-        </Box>
+        <EsperandoSintomas>
+          <Typography variant="h6">Selecione os sintomas!</Typography>
+        </EsperandoSintomas>
       )}
     </PageLayout>
   );
