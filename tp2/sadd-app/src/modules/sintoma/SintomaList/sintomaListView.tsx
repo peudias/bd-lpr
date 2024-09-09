@@ -39,7 +39,7 @@ const SintomaListView = () => {
         </Typography>
       }
       onBack={() => {
-        navigate(`/doenca/view`);
+        navigate(-1);
       }}
       actions={acoes}
     >

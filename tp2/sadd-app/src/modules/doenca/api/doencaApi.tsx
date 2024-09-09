@@ -3,11 +3,6 @@ import { IDoenca } from "../../../libs/typings";
 import { useState } from "react";
 import { IFormDoenca } from "../DoencaDetail/doencaDetailView";
 
-export type DiagnosticoType = {
-  id: number;
-  nomes_tecnicos: string;
-};
-
 const baseURL =
   process.env.NODE_ENV === "production"
     ? "https://meusadd-back.vercel.app/api"
@@ -58,7 +53,7 @@ function UseDoenca() {
   const getDiagnostico = async (sintomas: string[] | undefined) => {
     setLoading(true);
     try {
-      const response = await axios.post<DiagnosticoType[]>(
+      const response = await axios.post<IDoenca[]>(
         `${baseURL}/doenca/diagnostico`,
         { sintomas }
       );

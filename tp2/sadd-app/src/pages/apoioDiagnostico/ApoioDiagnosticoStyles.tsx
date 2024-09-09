@@ -11,6 +11,16 @@ const LoadingContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
+const EsperandoSintomas = styled(Box)(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  flexGrow: 1,
+  justifyContent: "flex-start",
+  alignItems: "center",
+  flexDirection: "column",
+  marginTop: "50px",
+}));
+
 const ApoioDiagnosticoStyles: ISxStyleObject = {};
 
-export { LoadingContainer, ApoioDiagnosticoStyles };
+export { LoadingContainer, EsperandoSintomas, ApoioDiagnosticoStyles };
