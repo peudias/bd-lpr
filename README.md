@@ -14,6 +14,8 @@ Acesse a pasta `sadd-app`, rode `npm i` e em seguida `npm start`. Aguarde abrir 
 
 ![image](https://github.com/user-attachments/assets/e2b0587f-50ce-4748-917c-bd9d949158fe)
 
+Os scripts do banco de dados estão disponíveis [aqui](https://github.com/peudias/bd-lpr/tree/main/av1);
+
 Conjuntamente rode o back-end do projeto.
 
 ### Instruções backend
