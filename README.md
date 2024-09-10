@@ -65,8 +65,8 @@ Você pode conferir todas as funcionalidades implementadas até o momento acessa
   ```bash
   git commit -m 'Adiciona nova feature'
   ```
-Envie sua branch:
+4.Envie sua branch:
   ```bash
   git push origin minha-nova-feature
   ```
-Abra um Pull Request.
+5.Abra um Pull Request.
