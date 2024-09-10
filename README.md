@@ -1,27 +1,72 @@
-# Banco de Dados
+# Sistema de Apoio ao Diagnóstico de Doenças (SADD)
 
-## TRABALHO PRÁTICO 01: Sistema de Apoio ao Diagnóstico de Doenças
+Este projeto é um Sistema de Apoio ao Diagnóstico de Doenças, desenvolvido para auxiliar na análise e diagnóstico de condições de saúde. Ele está disponível tanto para uso online quanto local, com instruções claras para configuração e execução.
 
-## Como rodar o projeto
+## Como Rodar o Projeto
 
-### Online
+### 1. **Online**
 
-Acesse [MeuSADD](https://www.meusadd.com.br/home) e teste a aplicação sem necessidade de rodar qualquer projeto em seu computador (enquanto estiver disponível).
+Acesse o sistema diretamente no link abaixo, sem necessidade de configuração local:
 
-### Local
+👉 [MeuSADD Online](https://www.meusadd.com.br/home)
 
-Acesse a pasta `sadd-app`, rode `npm i` e em seguida `npm start`. Aguarde abrir o navegador (abre sozinho).
+⚠️ **Observação**: A aplicação estará disponível enquanto os servidores estiverem ativos.
 
-![image](https://github.com/user-attachments/assets/e2b0587f-50ce-4748-917c-bd9d949158fe)
+---
 
-Os scripts do banco de dados estão disponíveis [aqui](https://github.com/peudias/bd-lpr/tree/main/av1);
+### 2. **Localmente**
 
-Conjuntamente rode o back-end do projeto.
+Siga as instruções abaixo para rodar o projeto no seu ambiente local:
 
-### Instruções backend
+#### Frontend
+1. Acesse a pasta `sadd-app` no diretório do projeto.
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+3.Inicie o servidor de desenvolvimento:
+   ```bash
+   npm start
+   ```
+4.O navegador será aberto automaticamente, exibindo a aplicação.
 
-Acesse o back-end em: [meusadd-back](https://github.com/peudias/meusadd-back)
+## Scripts do Banco de Dados
 
-### Funcionalidades implementadas
+Os scripts necessários para configurar o banco de dados estão disponíveis no seguinte repositório: 
 
-Acesse esse link para ver as [funcionalidades](https://github.com/peudias/bd-lpr/milestone/3?closed=1)
+👉 [Scripts do Banco de Dados](https://github.com/peudias/bd-lpr/tree/main/av1)
+
+## Funcionalidades Implementadas
+
+Você pode conferir todas as funcionalidades implementadas até o momento acessando o milestone concluído no GitHub: 
+
+👉 [Funcionalidades Implementadas](https://github.com/peudias/bd-lpr/milestone/3?closed=1)
+
+## Tecnologias Utilizadas
+
+* Frontend: React.js, HTML, CSS
+* Backend: Node.js, Express
+
+   👉 [Backend](https://github.com/peudias/meusadd-back)
+* Banco de Dados: MySQL
+* Ferramentas: Git, GitHub, npm
+
+## Como Contribuir
+
+1.Clone o repositório:
+  ```bash
+    git clone https://github.com/peudias/meusadd.git
+  ```
+2.Crie uma branch para sua feature/correção:
+  ```bash
+    git checkout -b minha-nova-feature
+  ```
+3.Faça commit das suas alterações:
+  ```bash
+  git commit -m 'Adiciona nova feature'
+  ```
+Envie sua branch:
+  ```bash
+  git push origin minha-nova-feature
+  ```
+Abra um Pull Request.
