@@ -113,7 +113,7 @@ const Home = () => {
             },
             {
               title: "Caderneta da Criança",
-              news: "Confira as novas orientações para cuidados infantis.",
+              news: "Confira já as novas orientações para cuidados infantis.",
               image: orientacoesCaderneta,
             },
           ].map((content, index) => (
