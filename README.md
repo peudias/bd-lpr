@@ -1,3 +1,5 @@
+![github-header-image (1)](https://github.com/user-attachments/assets/d56c6817-162f-44b0-bc42-ab2d15c07232)
+
 # Sistema de Apoio ao Diagnóstico de Doenças (SADD)
 
 Este projeto é um Sistema de Apoio ao Diagnóstico de Doenças, desenvolvido para auxiliar na análise e diagnóstico de condições de saúde. Ele está disponível tanto para uso online quanto local, com instruções claras para configuração e execução.
