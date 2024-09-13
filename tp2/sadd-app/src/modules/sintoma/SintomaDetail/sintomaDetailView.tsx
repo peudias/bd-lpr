@@ -15,7 +15,7 @@ import { ISintoma } from "../../../libs/typings";
 import { Center } from "../../patogeno/PatogenoDetail/patogenoDetailViewStyle";
 import { SintomaDetailControllerContext } from "./sintomaDetailController";
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SelectForm } from "../../../ui/components";
 
 const SintomaDetailView = () => {
@@ -32,6 +32,7 @@ const SintomaDetailView = () => {
   const { register, handleSubmit, formState, control } = form;
   const { errors } = formState;
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <PageLayout
       titleComponent={
@@ -48,7 +49,9 @@ const SintomaDetailView = () => {
         </Box>
       }
       onBack={() => {
-        navigate(`/sintoma/view/${doenca?.id}`);
+        navigate(`/sintoma/view/${doenca?.id}`, {
+          state: { from: location.state?.from },
+        });
       }}
     >
       <Center>
@@ -125,7 +128,9 @@ const SintomaDetailView = () => {
 
   function onSubmit(data: ISintoma) {
     onCreate(data);
-    navigate(`/sintoma/view/${doenca?.id}`);
+    navigate(`/sintoma/view/${doenca?.id}`, {
+      state: { from: location.state?.from },
+    });
   }
 };
 

@@ -25,7 +25,6 @@ const DoencaListController = () => {
     const fetchDoencas = async () => {
       try {
         const result = await list();
-        console.log("resultados doença = ", result);
         setResults(result ?? []);
       } catch (error) {
         console.error("Erro ao buscar doenças:", error);

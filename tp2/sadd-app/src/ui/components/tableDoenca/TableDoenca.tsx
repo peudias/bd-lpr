@@ -20,9 +20,10 @@ import { useNavigate } from "react-router-dom";
 
 interface ITable {
   todolist: Array<IDoenca>;
+  path: string;
 }
 
-export const TableLayoutDoenca: React.FC<ITable> = ({ todolist }) => {
+export const TableLayoutDoenca: React.FC<ITable> = ({ todolist, path }) => {
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -68,7 +69,11 @@ export const TableLayoutDoenca: React.FC<ITable> = ({ todolist }) => {
                       variant="outlined"
                       color="primary"
                       sx={{ marginTop: "8px" }}
-                      onClick={() => navigate(`/sintoma/view/${doenca.id}`)}
+                      onClick={() =>
+                        navigate(`/sintoma/view/${doenca.id}`, {
+                          state: { from: path },
+                        })
+                      }
                     >
                       Acessar Sintomas
                     </Button>

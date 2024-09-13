@@ -165,7 +165,7 @@ const DoencaListView = () => {
       titleComponent={<Typography variant="h5">Doenças</Typography>}
       actions={acoes}
       onBack={() => {
-        navigate(`/doenca`);
+        navigate(`/home`);
       }}
     >
       {loading ? (
@@ -177,7 +177,7 @@ const DoencaListView = () => {
         </LoadingContainer>
       ) : (
         <>
-          <TableLayoutDoenca todolist={pesquisarDoencas}></TableLayoutDoenca>
+          <TableLayoutDoenca todolist={pesquisarDoencas} path="/doenca/view" />
           <TablePagination
             component="div"
             count={todoList.length}

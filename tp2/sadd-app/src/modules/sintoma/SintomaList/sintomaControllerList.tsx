@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import UseSintoma from "../api/sintomaApi";
 import { IDoenca, ISintoma } from "../../../libs/typings";
 import { SintomaModuleContext } from "../sintomaContainer";
@@ -27,6 +27,7 @@ export const SintomaListControllerContext =
 
 const SintomaListController = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { list, loading } = UseSintoma();
   const { getDoencaById } = UseDoenca();
   const [result, setResults] = useState<ISintoma[]>([]);
@@ -35,9 +36,9 @@ const SintomaListController = () => {
 
   useEffect(() => {
     const fetchSintomas = async () => {
+      console.log("TOMAAA");
       try {
         const result = await list(id);
-        console.log("resultados patogenos = ", result);
         setResults(result ?? []);
         const doencaBack = await getDoencaById(id);
         setDoenca(doencaBack);
@@ -53,7 +54,9 @@ const SintomaListController = () => {
   const totalItens = sintomas?.length ?? 0;
 
   const onAdd = useCallback(() => {
-    navigate(`/sintoma/create/${id}`);
+    navigate(`/sintoma/create/${id}`, {
+      state: { from: location.state?.from },
+    });
   }, [navigate]);
 
   const providerValues: ISintomaListContollerContext = useMemo(

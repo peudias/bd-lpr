@@ -64,7 +64,7 @@ const ApoioDiagnostico = () => {
         <Typography variant="h5">Apoio ao Diagnóstico</Typography>
       }
       onBack={() => {
-        navigate(-1);
+        navigate("/home");
       }}
       searchs={searchsOption}
       actions={acoes}
@@ -77,7 +77,7 @@ const ApoioDiagnostico = () => {
           </Typography>
         </LoadingContainer>
       ) : response ? (
-        <TableLayoutDoenca todolist={response} />
+        <TableLayoutDoenca todolist={response} path="/apoio/diagnostico" />
       ) : (
         <EsperandoSintomas>
           <Typography variant="h6">Selecione os sintomas!</Typography>

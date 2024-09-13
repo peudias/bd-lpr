@@ -4,7 +4,7 @@ import { SintomaListControllerContext } from "./sintomaControllerList";
 import { LoadingContainer } from "./sintomaListViewStyle";
 import { PageLayout } from "../../../ui/layout";
 import { TableLayoutSintomas } from "../../../ui/components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const SintomaListView = () => {
   const { todoList, loading, onAdd, doenca } = useContext(
@@ -12,6 +12,7 @@ const SintomaListView = () => {
   );
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const acoes = (
     <Box
@@ -39,7 +40,7 @@ const SintomaListView = () => {
         </Typography>
       }
       onBack={() => {
-        navigate(-1);
+        navigate(location.state?.from);
       }}
       actions={acoes}
     >

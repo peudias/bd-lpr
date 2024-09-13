@@ -25,7 +25,6 @@ const PatogenoListController = () => {
     const fetchPatogenos = async () => {
       try {
         const result = await list();
-        console.log("resultados patógenos = ", result);
         setResults(result ?? []);
       } catch (error) {
         console.error("Erro ao buscar patógenos:", error);
