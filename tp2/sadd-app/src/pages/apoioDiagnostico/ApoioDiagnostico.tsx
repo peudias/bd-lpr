@@ -56,7 +56,7 @@ const ApoioDiagnostico = () => {
       }}
     >
       <Button variant="contained" color="primary" onClick={onSubmit}>
-        Verificar doenças
+        Verificar Doenças
       </Button>
       <Button
         variant="contained"
@@ -64,7 +64,7 @@ const ApoioDiagnostico = () => {
         onClick={() => gerarRelatorioPDF(response)}
         disabled={!response}
       >
-        Gerar Relatório PDF
+        Gerar Relatório
       </Button>
     </Box>
   );

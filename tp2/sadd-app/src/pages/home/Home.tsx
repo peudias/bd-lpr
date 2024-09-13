@@ -90,7 +90,7 @@ const Home = () => {
               startIcon={<DevicesFoldOutlinedIcon />}
             >
               <Typography variant="body2" align="center">
-                {"Diagnóstico de apoio"}
+                {"Diagnóstico de Apoio"}
               </Typography>
             </Button>
           </Grid>
@@ -98,12 +98,12 @@ const Home = () => {
       </Container>
 
       <Container sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h6">Conteúdo</Typography>
+        <Typography variant="h6">Notícias</Typography>
         <Grid container spacing={2} sx={{ mt: 2 }}>
           {[
             {
               title: "Saúde de A-Z",
-              news: "Novo guia de saúde lançado para 2024.",
+              news: "Novo guia de saúde lançado para 2024. Consulte o Posto de Saúde mais próximo!",
               image: fakeNewsImage,
             },
             {
