@@ -10,7 +10,7 @@ Acesse o sistema diretamente no link abaixo, sem necessidade de configuração l
 
 👉 [MeuSADD Online](https://www.meusadd.com.br/home)
 
-⚠️ **Observação**: Recomenda-se testar o projeto localmente, pois podem ocorrer inconsistências na versão online devido à limitada experiência com os servidores AWS, onde o banco de dados foi hospedado.
+⚠️ **Observação**: Recomenda-se testar o projeto localmente, pois podem ocorrer **inconsistências na versão online** devido à limitada experiência com os **servidores da AWS e da Vercel**, onde a aplicação e o banco de dados foram hospedados.
 
 ⚠️ **Observação**: A aplicação estará disponível enquanto os servidores estiverem ativos.
 
