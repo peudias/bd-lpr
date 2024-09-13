@@ -1,4 +1,5 @@
-![github-header-image (1)](https://github.com/user-attachments/assets/d56c6817-162f-44b0-bc42-ab2d15c07232)
+![github-header-image (2)](https://github.com/user-attachments/assets/d12a5257-505a-4007-ab5f-e7f9cfc31660)
+
 
 # Sistema de Apoio ao Diagnóstico de Doenças (SADD)
 
