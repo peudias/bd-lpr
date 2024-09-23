@@ -19,7 +19,7 @@ Ou
 
 ⚠️ **Observação**: Recomenda-se testar o projeto localmente, pois podem ocorrer **inconsistências na versão online** devido à limitada experiência com os **servidores da AWS e da Vercel**, onde a aplicação e o banco de dados foram hospedados.
 
-⚠️ **Observação**: A aplicação estará disponível enquanto os servidores estiverem ativos.
+⚠️ **Observação**: A aplicação estará disponível enquanto os servidores estiverem ativos. Atualização: instância da AWS finalizada. Não é possível consultar o banco de dados.
 
 ---
 
